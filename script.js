@@ -1,14 +1,34 @@
 let loadToId = 5;
-let isLoading = true;   // ladeanimation
+let isLoading = false;   // ladeanimation
 
 function init() {
-    renderPokemonData();
+    progressCircle()
+    // renderPokemonData();
 }
 
 function loadMore() {
     loadToId = loadToId + loadToId;
-    renderPokemonData()
-    console.log(loadToId);
+    progressCircle();
+    // renderPokemonData()
+}
+
+function progressCircle() {
+    if (!isLoading) {
+        let contentRef = document.getElementById('content');
+        contentRef.innerHTML = "";
+
+        document.getElementById('content').innerHTML = progressCircleTemplate();
+       
+        // Setzt isLoading auf true, um sicherzustellen, dass die Animation nicht sofort wieder verschwindet
+        renderPokemonData();
+        isLoading = true;
+
+        // Ladeanimation für eine Mindestzeit anzeigen (z.B. 2 Sekunden)
+        setTimeout(() => {
+            // Hier kannst du die Ladeanimation wieder ausblenden, wenn die Daten fertig geladen sind
+            isLoading = false;
+        }, 5000); // Mindestzeit für die Ladeanimation (2 Sekunden)
+    }
 }
 
 // Function fetches the list of Pokémon names and their URLs from the API
@@ -58,11 +78,11 @@ async function fetchPokemonDetails(pokemonUrl) {
 
 // Function fetches Pokémon data, processes it, and renders it as mini-cards;
 async function renderPokemonData() {
-    let contentRef = document.getElementById('content');
-    contentRef.innerHTML = "";
-    
     // Fetch the list of Pokémon names and URLs
     let pokemonNamesData = await fetchPokemonNames();
+    let contentRef = document.getElementById('content');
+    contentRef.innerHTML = "";
+
     for (let i = 0; i < pokemonNamesData.results.length; i++) {
         let pokemon = pokemonNamesData.results[i];
         // console.log(pokemon);
@@ -74,7 +94,7 @@ async function renderPokemonData() {
         for (let j = 0; j < firstLevelDetails.types.length; j++) {
             pokemonIconNames.push(firstLevelDetails.types[j].type.name); // Collecting the type names
             // console.log(pokemonIconNames);            
-        }  
+        }
         // Render the Pokémon card using the fetched details
         document.getElementById('content').innerHTML += miniCardTemplate(pokemon, firstLevelDetails, secondLevelDetails, thirdLevelDetails, pokemonIconNames);
 
@@ -88,10 +108,6 @@ async function renderPokemonData() {
         }
     }
 }
-
-
-
-
 
 function on() {
     document.getElementById("overlay").style.display = "block";

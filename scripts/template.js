@@ -60,3 +60,46 @@ function detailCardTemplate() {
             </div>
         `;
 }
+
+function progressCircleTemplate() {
+    return `
+                <svg width="100" height="100" viewBox="0 0 100 100">
+                    <!-- Der Hintergrundkreis -->
+                    <circle 
+                        cx="50" 
+                        cy="50" 
+                        r="40" 
+                        stroke="lightgray" 
+                        stroke-width="10" 
+                        fill="none" 
+                    />
+
+                    <!-- Der gefüllte Teil des Kreises (Ladebalken) -->
+                    <circle 
+                        cx="50" 
+                        cy="50" 
+                        r="40" 
+                        stroke="red" 
+                        stroke-width="10"
+                        stroke-dasharray="282.6"
+                        stroke-dashoffset="282.6"
+                        stroke-linecap="round" 
+                        fill="none" 
+                        transform="rotate(-90, 50, 50)">
+                            <animate attributeName="stroke-dashoffset" 
+                            from="282.6"
+                            to="0" 
+                            dur="5s" 
+                            fill="freeze"
+                            calcMode="spline" 
+                            keySplines="0.42 0 0.58 1"
+                        />
+                    </circle>
+                    <!-- Der Text in der Mitte -->
+                    <text x="50" y="50">
+                    50%
+                    </text>
+                </svg>
+            `;
+    
+}
