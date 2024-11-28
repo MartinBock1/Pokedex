@@ -1,22 +1,20 @@
+let loadToId = 5;
+let isLoading = true;   // ladeanimation
+
 function init() {
-    // fetchPokemonNames();
     renderPokemonData();
 }
 
-// let pokemonFirstLevelResults;  // all names & url`s of loaded pokemons
-// let pokemonFirstLevelDetails = '';  // for 'id', 'sprites'(images), 'species url'
-// let pokemonSecondLevelDetails = '';  // for 'id', 'sprites'(images), 'species'
-// let pokemon;
-// let pokemonName;
-// let pokemonImage = '';
-
-// let firstLevelDetails;
-let isLoading = true;   // ladeanimation
+function loadMore() {
+    loadToId = loadToId + loadToId;
+    renderPokemonData()
+    console.log(loadToId);
+}
 
 // Function fetches the list of Pokémon names and their URLs from the API
 async function fetchPokemonNames() {
     try {
-        let response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=10&offset=0');
+        let response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${loadToId}&offset=0`);
 
         // Parse and returns the JSON response
         return await response.json();
@@ -60,6 +58,9 @@ async function fetchPokemonDetails(pokemonUrl) {
 
 // Function fetches Pokémon data, processes it, and renders it as mini-cards;
 async function renderPokemonData() {
+    let contentRef = document.getElementById('content');
+    contentRef.innerHTML = "";
+    
     // Fetch the list of Pokémon names and URLs
     let pokemonNamesData = await fetchPokemonNames();
     for (let i = 0; i < pokemonNamesData.results.length; i++) {
@@ -72,8 +73,7 @@ async function renderPokemonData() {
         let pokemonIconNames = [];
         for (let j = 0; j < firstLevelDetails.types.length; j++) {
             pokemonIconNames.push(firstLevelDetails.types[j].type.name); // Collecting the type names
-            console.log(pokemonIconNames);
-            
+            // console.log(pokemonIconNames);            
         }  
         // Render the Pokémon card using the fetched details
         document.getElementById('content').innerHTML += miniCardTemplate(pokemon, firstLevelDetails, secondLevelDetails, thirdLevelDetails, pokemonIconNames);

@@ -14,47 +14,49 @@ function miniCardTemplate(pokemon, firstLevelDetails, secondLevelDetails, pokemo
     pokemonImage = firstLevelDetails.sprites.other.home.front_default;
     
 
-    return `    <div class="mini_card_body" onclick="on()">  
-                    <div class="mini_card_body_top">
-                        <div>
-                            #${firstLevelDetails.id}
-                        </div>
-                        <div>
-                            ${pokemonName}
-                        </div>
-                        <div></div>                         
+    return `    
+            <div class="mini_card_body" onclick="on()">  
+                <div class="mini_card_body_top">
+                    <div>
+                        #${firstLevelDetails.id}
                     </div>
-                    <div class="mini_card_body_img" id="mini_card_body_${pokemon.name}">
-                        <img src="${pokemonImage}" alt="Image of ${pokemonName}">
+                    <div>
+                        ${pokemonName}
                     </div>
-                    <div class="mini_card_body_bottom" id="mini_card_icon_${pokemon.name}">
-                    </div>                    
+                    <div></div>                         
+                </div>
+                <div class="mini_card_body_img" id="mini_card_body_${pokemon.name}">
+                    <img src="${pokemonImage}" alt="Image of ${pokemonName}">
+                </div>
+                <div class="mini_card_body_bottom" id="mini_card_icon_${pokemon.name}">
+                </div>                    
             </div>
         `;
 }
 
 function detailCardTemplate() {
 
-    return `    <div class="card_body">
-                    <div class="detail_card_body">  
-                        <div class="detail_card_body_top">
-                            <div>
-                                top
-                            </div>
-                            <div>
-                                middle
-                            </div>
-                            <div>
-                                bottom
-                            </div>                         
+    return `    
+            <div class="card_body">
+                <div class="detail_card_body">  
+                    <div class="detail_card_body_top">
+                        <div>
+                            top
                         </div>
-                        <div class="detail_card_body_img">
-                            Image
+                        <div>
+                            middle
                         </div>
-                        <div class="detail_card_body_bottom">
+                        <div>
                             bottom
-                        </div>                    
+                        </div>                         
                     </div>
+                    <div class="detail_card_body_img">
+                        Image
+                    </div>
+                    <div class="detail_card_body_bottom">
+                        bottom
+                    </div>                    
                 </div>
-            `;
+            </div>
+        `;
 }
