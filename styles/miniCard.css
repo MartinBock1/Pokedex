@@ -1,0 +1,50 @@
+
+
+#content {
+   display: flex;
+   flex-wrap: wrap;
+   align-content: center;
+   justify-content: center;
+}
+
+.mini_card_body {
+   height: 300px;
+   width: 220px;
+   background-color: #0d3240;
+   border: 1px solid #000;
+   border-radius: 20px;
+   color: #fefefe;
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+   margin: 20px;
+}   
+
+.mini_card_body:hover {
+   cursor: pointer;
+   transform: scale(1.2); /* Vergrößert das Element um 10% */
+   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Optionale Schatteneffekte für den Hover-Effekt */
+}
+
+.mini_card_body_top {
+   height: 20px;
+   padding: 10px;
+   display: flex;
+   justify-content: space-around;
+}
+
+.mini_card_body_img img {
+   width: 100%;
+}
+
+.mini_card_body_bottom {
+   height: 40px;
+   display: flex;
+   justify-content: center;
+   gap: 20px;
+}
+
+.mini_card_body_bottom img{
+   height: 30px;
+
+}

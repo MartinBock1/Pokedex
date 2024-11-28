@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./styles/miniCard.css">
+    <link rel="stylesheet" href="./styles/detailsCard.css">
+    <title>Pokedex</title>
+</head>
+
+<body onload="init()">
+    <header>
+        <div class="max-content header-text">
+            Pokedex
+        </div>
+    </header>
+
+    <main class="container max-content ">
+        <div id="content"></div>
+        <div id="overlay" onclick="off()"></div>
+    </main>
+
+    <footer>
+        <div class="footer-text max-content">
+            &copy;2024 Martin Bock - Alle Bilder & Texte von 
+            <a href="https://pokeapi.co/" target="_blank">https://pokeapi.co/</a> - 
+            <a href="https://pokeapi.co/docs/v2#fairuse" target="_blank">PokéAPI is free and open</a>
+        </div>
+    </footer>
+</body>
+<script src="./scripts/template.js"></script>
+<script src="./script.js"></script>
+</html>

@@ -1,0 +1,92 @@
+/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    Globals
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+* {
+  box-sizing: border-box;
+  margin: 0;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #05171e;
+  color: #fefefe;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.max-content {
+  max-width: 1440px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.container {
+  display: flex;
+  justify-content: space-around;
+  align-content: center;
+}
+
+h1 {
+  text-align: center;
+  font-size: 40px;
+  margin-block-start: 0;
+  padding-top: 20px;
+}
+
+.d_none {
+  display: none;
+}
+
+/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    Header
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+header {
+  background-color: #0d2d33;
+  text-align: left;
+  align-content: center;
+  height: 80px;
+}
+
+header img {
+  width: 250px;
+  margin-left: 20px;
+}
+
+.header-text {
+  padding-left: 20px;
+  font-size: 48px;
+}
+
+/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    Main Content
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+main {
+  flex: 1;
+}
+
+
+/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    Footer
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+footer {
+  background-color: #0d3331;
+  position: relative;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  align-content: center;
+}
+
+footer a {
+  color: #fefefe;
+}
+
+.footer-text {
+  color: white;
+  font-size: 12px;
+  text-align: center;
+}
