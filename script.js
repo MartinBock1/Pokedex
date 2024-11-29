@@ -1,111 +1,121 @@
+/** TODO
+ * bestimmte Anzahl an Pokemon Karten direkt rendern
+ * Button, um weitere 20-40 Pokemon zu laden
+ * Loadingscreen 
+ * Button kann während des Ladens nicht erneut angeklickt werden
+ * 
+ * Sichtbar auf kleinen Pokemon Karte:
+ *  -  Name / Typ / Bild des Pokemons / Hintergrundfarbe passend zum Typ / ID (optional)
+ * Hover-Effekt auf der kleinen Pokemon Karte:
+ *  - cursor-pointer
+ * z.B. Pokemon erscheint größer etc. (optional)
+ * 
+ * 
+ * Große Ansicht:
+ * Beim Klicken auf die Pokemonkarte soll sich diese in groß öffnen.
+ * Benutze ein transparentes Overlay
+ * Der Hintergrund ist nicht scrollbar in der großen Ansicht.
+ * gewisse Werte wie z.B. hp/ attack/ defense etc anzeigen
+ * Pfeile oder ähnliches, um zwischen den Karten in der großen Ansicht zu wechseln
+ */
+
+
 let loadToId = 5;
 let isLoading = false;   // ladeanimation
 
-function init() {
-    progressCircle()
-    // renderPokemonData();
+
+async function init() {
+    // loadingSpinner();
+    fetchDataJson();
+
+    // Once the data is rendered, set loading to false
+    isLoading = false;
+
 }
 
 function loadMore() {
     loadToId = loadToId + loadToId;
-    progressCircle();
-    // renderPokemonData()
+    // loadingSpinner();
+    fetchDataJson();
+    console.log(loadToId);
 }
 
-function progressCircle() {
-    if (!isLoading) {
-        let contentRef = document.getElementById('content');
-        contentRef.innerHTML = "";
+function loadingSpinner() {
+    // // Check if the loading process is not already active
+    // if (!isLoading) {
+    //     // Set the loading status to true to prevent the animation from starting multiple times
+    //     isLoading = true;
 
-        document.getElementById('content').innerHTML = progressCircleTemplate();
-       
-        // Setzt isLoading auf true, um sicherzustellen, dass die Animation nicht sofort wieder verschwindet
-        renderPokemonData();
-        isLoading = true;
+    //     // Get a reference to the content container where the loading animation will be displayed
+    //     let contentRef = document.getElementById('content');
 
-        // Ladeanimation für eine Mindestzeit anzeigen (z.B. 2 Sekunden)
-        setTimeout(() => {
-            // Hier kannst du die Ladeanimation wieder ausblenden, wenn die Daten fertig geladen sind
-            isLoading = false;
-        }, 5000); // Mindestzeit für die Ladeanimation (2 Sekunden)
-    }
+    //     // Clear the current content in the container
+    //     contentRef.innerHTML = "";
+
+    //     // Insert the loading animation into the container
+    //     document.getElementById('content').innerHTML = progressCircleTemplate();
+
+    //     // Once the data is rendered, set loading to false
+    //     // isLoading = false;     
+    // }
 }
 
-// Function fetches the list of Pokémon names and their URLs from the API
-async function fetchPokemonNames() {
+async function fetchDataJson() {
     try {
-        let response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${loadToId}&offset=0`);
+        // Fetch the Pokémon list from the API
+        let responseAPI = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${loadToId}&offset=0`);
+        let responseApiAsJson = await responseAPI.json();   // Get the list of Pokémon (name, url)
 
-        // Parse and returns the JSON response
-        return await response.json();
-
+        // Pass the data to the process function
+        processPokemonData(responseApiAsJson.results);
     } catch (error) {
         console.error("Fehler beim Abrufen der Daten:", error);
         document.getElementById('content').innerHTML = `Fehler: ${error.message}`;
     }
 }
 
-/**Function fetches detailed data for a specific Pokémon
- * This includes both the first-level details (general Pokémon info) and second-level details (species-specific info like color)
- * 
- * @param {*} pokemonUrl 
- * @returns firstLevelDetails, secondLevelDetails
- */
-async function fetchPokemonDetails(pokemonUrl) {
-    // Fetch the first-level details using the Pokémon's URL
-    let firstLevelResponse = await fetch(pokemonUrl);
-    let firstLevelDetails = await firstLevelResponse.json();
-
-    // Fetch the second-level details using the species URL
-    let secondLevelResponse = await fetch(firstLevelDetails.species.url);
-    let secondLevelDetails = await secondLevelResponse.json();
-    // console.log(secondLevelResponse);
-
-    let thirdLevelDetails;
-    // Fetch the third-level details using the forms URL
-    for (let i = 0; i < firstLevelDetails.forms.length; i++) {
-        const element = firstLevelDetails.forms[i];
-
-        let thirdLevelResponse = await fetch(element.url);
-        thirdLevelDetails = await thirdLevelResponse.json();
-        thirdLevelDetails = thirdLevelDetails.pokemon.url;
-        // console.log(thirdLevelDetails);
-    }
-
-    // Return both levels of details as an object
-    return { firstLevelDetails, secondLevelDetails, thirdLevelDetails };
-}
-
-// Function fetches Pokémon data, processes it, and renders it as mini-cards;
-async function renderPokemonData() {
-    // Fetch the list of Pokémon names and URLs
-    let pokemonNamesData = await fetchPokemonNames();
+async function processPokemonData(pokemonDataArray) {
+    // Get a reference to the content container where the loading animation will be displayed
     let contentRef = document.getElementById('content');
+
+    // Clear the current content in the container
     contentRef.innerHTML = "";
 
-    for (let i = 0; i < pokemonNamesData.results.length; i++) {
-        let pokemon = pokemonNamesData.results[i];
-        // console.log(pokemon);
+    for (let i = 0; i < pokemonDataArray.length; i++) {
+        let pokemonData = pokemonDataArray[i];
 
-        // Fetch detailed information for the current Pokémon
-        let { firstLevelDetails, secondLevelDetails, thirdLevelDetails } = await fetchPokemonDetails(pokemon.url);
+        try {
+            // Fetch the first-level details for each Pokémon (id, name, types, etc.)
+            let firstLevelDetailsApi = await fetch(pokemonData.url);
+            let firstLevelDetails = await firstLevelDetailsApi.json();
 
-        let pokemonIconNames = [];
-        for (let j = 0; j < firstLevelDetails.types.length; j++) {
-            pokemonIconNames.push(firstLevelDetails.types[j].type.name); // Collecting the type names
-            // console.log(pokemonIconNames);            
+            // Get the Pokémon image and types
+            let pokemonImage = firstLevelDetails.sprites.other.home.front_default;
+            let pokemonIconNames = firstLevelDetails.types.map(typeInfo => typeInfo.type.name);
+
+            // Fetch additional species details (e.g. color)
+            let responseSpecies = await fetch(firstLevelDetails.species.url);
+            let speciesDetails = await responseSpecies.json();
+
+            // Call the render function to display the data
+            renderPokemonData(firstLevelDetails, pokemonImage, pokemonIconNames, speciesDetails.color.name);
+        } catch (error) {
+            console.error("Fehler beim Verarbeiten der Pokémon-Daten:", error);
         }
-        // Render the Pokémon card using the fetched details
-        document.getElementById('content').innerHTML += miniCardTemplate(pokemon, firstLevelDetails, secondLevelDetails, thirdLevelDetails, pokemonIconNames);
+    }
+}
 
-        // Set the background color of the specific card using its name
-        document.getElementById(`mini_card_body_${pokemon.name}`).style.backgroundColor = secondLevelDetails.color.name;
+function renderPokemonData(firstLevelDetails, pokemonImage, pokemonIconNames, color) {
+    // Insert the mini card HTML into the 'content' element
+    document.getElementById('content').innerHTML += miniCardTemplate(firstLevelDetails, pokemonImage);
 
-        // Now update the 'mini_card_icon' with the pokemonIcons.name for each type using a for loop
-        for (let i = 0; i < pokemonIconNames.length; i++) {
-            const typeName = pokemonIconNames[i];
-            document.getElementById(`mini_card_icon_${pokemon.name}`).innerHTML += `<img src="./img/pokedex_icons/typeIcon_${typeName}.png" alt="${typeName}">`;
-        }
+    // Set the background color of the Pokémon card
+    document.getElementById(`mini_card_body_${firstLevelDetails.name}`).style.backgroundColor = color;
+
+    // Add the icons for each type to the 'mini_card_icon_${pokemonName}' div
+    let iconElement = document.getElementById(`mini_card_icon_${firstLevelDetails.name}`);
+    for (let i = 0; i < pokemonIconNames.length; i++) {
+        iconElement.innerHTML += `<img src="./img/pokedex_icons/typeIcon_${pokemonIconNames[i]}.png" alt="${pokemonIconNames[i]}">`;
     }
 }
 
