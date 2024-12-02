@@ -16,3 +16,9 @@ button:hover {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Optionale Schatteneffekte für den Hover-Effekt */
     z-index: 2;
 }
+
+.arrows_icons {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+}

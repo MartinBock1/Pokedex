@@ -30,20 +30,33 @@
    justify-content: space-between;
    margin: 20px;
    z-index: 2;
+   cursor: default;
 }   
 
+h3 {
+   cursor: pointer;
+}
 .detail_card_body_top {
    height: 20px;
-   padding: 10px;
+   padding: 20px 20px;
    display: flex;
-   justify-content: space-around;
+   justify-content: space-between;
 }
 
-/* .detail_card_body_img img {
-   width: 100%;
+/* .detail_card_body_img {
+   display: flex;
 } */
 
+.pokemonImage {
+   width: 100%;
+}
+
 .detail_card_body_bottom {
-   height: 30px;
-   text-align: center;
+   height: 50px;
+   /* text-align: center; */
+   display: flex;
+   justify-content: space-between;
+   padding-left: 10px;
+   padding-right: 10px;
+   
 }
