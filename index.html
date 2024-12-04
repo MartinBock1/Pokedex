@@ -4,35 +4,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="./img/pokedex_icons/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="./img/icons/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="./style.css">
     <link rel="stylesheet" href="./styles/miniCard.css">
     <link rel="stylesheet" href="./styles/detailsCard.css">
     <link rel="stylesheet" href="./styles/button.css">
     <link rel="stylesheet" href="./styles/loadingSpinner.css">
+    <link rel="stylesheet" href="./styles/responsive.css">
     <title>Pokedex</title>
 </head>
 
 <body onload="init()">
     <header>
-        <div class="max-content header-text">
-           <img src="./img/superball.png" alt="Pokedex Image"> 
-           Pokedex
+        <div class="max-content header-content">
+            <div class="header-text">
+                <img src="./img/superball.png" alt="Pokedex Image">
+                Pokedex
+            </div>
+            <div class="search-content">
+                <input type="text" class="search-field" id="search" placeholder="Search ...">
+                <div id="min-letters-warning" class="warning-message" style="display: none;">Minimum 3 letters required</div>
+            </div>
         </div>
     </header>
 
     <main class="container max-content ">
         <div id="loadingSpinner"></div>
         <div id="content"></div>
-        <button onclick="loadMore()">load more</button>
+        <button onclick="loadMore()" class="load_more">load more</button>
         <div id="overlay" onclick="overlayOff()"></div>
     </main>
 
     <footer>
         <div class="footer-text max-content">
-            &copy;2024 Martin Bock - Alle Bilder & Texte von 
-            <a href="https://pokeapi.co/" target="_blank">https://pokeapi.co/</a> - 
-            <a href="https://pokeapi.co/docs/v2#fairuse" target="_blank">PokéAPI is free and open</a>
+            &copy;2024 Martin Bock - Alle Bilder & Texte von
+            <a href="https://pokeapi.co/" target="_blank">https://pokeapi.co/</a> -
+            <a href="https://pokeapi.co/docs/v2#fairuse" target="_blank">PokéAPI is free and open</a> &
+            <a href="https://www.flaticon.com/" target="_blank">flaticon.com</a>
         </div>
     </footer>
 </body>

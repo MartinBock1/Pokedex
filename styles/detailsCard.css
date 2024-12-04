@@ -1,27 +1,27 @@
+/* ---------------------------- Globals ----------------------------- */
 #overlay {
-  position: fixed;
-  display: none;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0,0,0,0.5);
-  z-index: 2;
-  cursor: pointer;
+   position: fixed;
+   display: none;
+   width: 100%;
+   height: 100%;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   background-color: rgba(0, 0, 0, 0.5);
+   z-index: 2;
+   cursor: pointer;
 }
 
 .card_body {
-    display: flex;
-    justify-content: center;
+   display: flex;
+   justify-content: center;
 }
 
 .detail_card_body {
    height: 700px;
    width: 400px;
-   background-color: #0d3240;
-   /* background-color: #fefefe; */
+   background-color: #07222b;
    border: 1px solid #000;
    border-radius: 20px;
    color: #fefefe;
@@ -31,11 +31,13 @@
    margin: 20px;
    z-index: 2;
    cursor: default;
-}   
+}
 
+/* ---------------------------- Card Body Top ----------------------------- */
 h3 {
    cursor: pointer;
 }
+
 .detail_card_body_top {
    height: 20px;
    padding: 20px 20px;
@@ -43,20 +45,58 @@ h3 {
    justify-content: space-between;
 }
 
-/* .detail_card_body_img {
-   display: flex;
-} */
-
-.pokemonImage {
-   width: 100%;
+/* ---------------------------- Card Body Img ----------------------------- */
+.detail_card_body_img {
+   margin-left: auto;
+   margin-right: auto;
 }
 
+.pokemonImage {
+   height: 300px;
+}
+
+.detail_card_icon_body {
+   display: flex;
+   justify-content: center;
+   gap: 20px;
+}
+
+/* ---------------------------- Card Body Details ----------------------------- */
+.details_block {
+   display: flex;
+   flex-direction: column;
+   /* margin-top: 100px; */
+}
+.nav {
+   display: flex;
+   justify-content: space-around;
+   /* margin-top: 55px; */
+}
+
+.detail_content {
+   background-color: #0d3340;
+   min-height: 130px;
+   padding: 10px 20px;
+   /* border: 1px solid; */
+}
+
+.details {
+   font-size: 16px;
+   padding-top: 5px;
+   display: flex;
+}
+
+.detail_properties {
+   width: 140px;
+}
+
+/* ---------------------------- Card Body Bottom ----------------------------- */
 .detail_card_body_bottom {
+   background-color: #0d3240;
    height: 50px;
-   /* text-align: center; */
    display: flex;
    justify-content: space-between;
+   align-items: center;
    padding-left: 10px;
    padding-right: 10px;
-   
 }

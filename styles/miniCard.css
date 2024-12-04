@@ -1,3 +1,4 @@
+/* ---------------------------- Globals ----------------------------- */
 #content {
    display: flex;
    flex-wrap: wrap;
@@ -25,6 +26,7 @@
    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Optionale Schatteneffekte für den Hover-Effekt */
 }
 
+/* ---------------------------- Card Body Top ----------------------------- */
 .mini_card_body_top {
    height: 35px;
    padding: 10px;
@@ -32,10 +34,12 @@
    justify-content: space-around;
 }
 
+/* ---------------------------- Card Body Img ----------------------------- */
 .mini_card_body_img img {
    width: 100%;
 }
 
+/* ---------------------------- Card Body Bottom ----------------------------- */
 .mini_card_body_bottom {
    height: 35px;
    display: flex;

@@ -1,5 +1,11 @@
-.progressImg {
+.spinner_img {
    animation: rotation 5s infinite linear;
+}
+
+.loading_text {
+   text-align: center;
+   margin-top: 20px;
+   font-size: 24px;
 }
 
 @keyframes rotation {

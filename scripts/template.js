@@ -31,7 +31,7 @@ function miniCardTemplate(pokemon) {
         `;
 }
 
-function detailCardTemplate(pokemon, direction = null) {
+function detailCardTemplate(pokemon, direction = null, pokemonAbilities) {
     return `    
             <div class="card_body">
                 <div onclick="logDownWithBubblingPrevention(event)" class="detail_card_body">
@@ -46,24 +46,126 @@ function detailCardTemplate(pokemon, direction = null) {
                             <h3 onclick="overlayOff()" title="close">X</h3>
                         </div>                         
                     </div>
-                    <div class="detail_card_body_img" id="mini_card_body_${pokemon.name}">
-                    <img class="pokemonImage" src="${pokemon.image}" alt="Image of ${pokemon.name}">
+                    <div class="detail_card_body_img" >
+                        <img class="pokemonImage" src="${pokemon.image}" alt="Image of ${pokemon.name}">
+                    </div>
+                    <div>
+                    <img class="detail_card_icon_body" id="detail_card_icon">
+                    </div>
+                    
+                    <div class="details_block">
+                        <div class="nav">
+                            <button class="detail_btn" onclick="showMainDetails('${pokemon.name}')">
+                                main
+                            </button>
+                            <button class="detail_btn" onclick="showStatsDetails('${pokemon.name}')">
+                                stats
+                            </button>
+                            <button class="detail_btn" onclick="showEvoChainDetails('${pokemon.name}')">
+                                Evo chain
+                            </button>
+                        </div>                        
+                        <div class="detail_content" id="detail_content">
+                            <div class="details">
+                                <div class="detail_properties">
+                                    Height
+                                </div> 
+                                <div>
+                                    : ${(pokemon.height / 10).toFixed(2).replace(".", ",") } m
+                                </div>
+                            </div>
+                            <div class="details">
+                                <div class="detail_properties">
+                                    Weight
+                                </div>
+                                <div>
+                                    : ${(pokemon.weight / 10).toFixed(2).replace(".", ",")} kg
+                                </div>
+                            </div>
+                            <div class="details">
+                                <div class="detail_properties">
+                                    Base_experience
+                                </div>
+                                <div>
+                                    : ${pokemon.baseExperience}
+                                </div>
+                            </div>
+                            <div class="details">
+                                <div class="detail_properties">
+                                    Abilities
+                                </div>
+                                <div>
+                                    : ${pokemonAbilities.join(", ") }
+                                </div>
+                            </div>
+                            <div class="details">                                
+                                <div>
+                                    <br>${pokemon.flavortext.replace("\f", "") }
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="detail_card_body_bottom">
-                        <img onclick="overlayOn('${getNextPokemonName(pokemon.name, -1)}')" class="arrows_icons" src="./img/icons/arrows_left_red.png" title="back">
-                        
-                        <img onclick="overlayOn('${getNextPokemonName(pokemon.name, 1)}')" class="arrows_icons" src="./img/icons/arrows_right_red.png" title="next">
+                        <img onclick="overlayOn('${getNextPokemonName(pokemon.name, -1)}')" 
+                            class="arrows_icons" src="./img/icons/arrows_left_red.png" title="back">                        
+                        <img onclick="overlayOn('${getNextPokemonName(pokemon.name, 1)}')" 
+                            class="arrows_icons" src="./img/icons/arrows_right_red.png" title="next">
                     </div>                    
                 </div>
             </div>
         `;
 }
 
-function progressCircleTemplate() {
+function loadingSpinnerTemplate() {
     return `
-                <div class="progressImg">
+                <div class="spinner_img">
                     <img src="./img/superball.png" alt="">
+                    
+                </div>
+                <div class="loading_text">
+                    load Pokemons...
+                </div>
+            `;    
+}
+
+function mainDetailsTemplate(pokemon, pokemonAbilities) {
+    return `
+                <div class="details">
+                    <div class="detail_properties">
+                        Height
+                    </div>
+                    <div>
+                        : ${pokemon.height / 10} m
+                    </div>
+                </div>
+                <div class="details">
+                    <div class="detail_properties">
+                        Weight
+                    </div>
+                    <div>
+                        : ${pokemon.weight} kg
+                    </div>
+                </div>
+                <div class="details">
+                    <div class="detail_properties">
+                        Base_experience
+                    </div>
+                    <div>
+                        : ${pokemon.baseExperience}
+                    </div>
+                </div>
+                <div class="details">
+                    <div class="detail_properties">
+                        Abilities
+                    </div>
+                    <div>
+                        : ${pokemonAbilities.join(", ") }
+                    </div>
+                </div>
+                <div class="details">
+                    <div>
+                        <br>${pokemon.flavortext }
+                    </div>
                 </div>
             `;
-    
 }

@@ -1,0 +1,23 @@
+@media (max-width: 520px) {
+    header {    
+    height: 100px;
+}
+
+   .header-content {
+      font-size: 32px;
+   }
+
+   header img {
+      width: 40px;
+      margin-left: 20px;
+      margin-right: 20px;
+   }
+
+   .header-content {
+      flex-direction: column;
+   }
+
+   .header-text {
+    margin-bottom: 10px;
+}
+}

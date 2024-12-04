@@ -1,4 +1,4 @@
-button {
+.load_more {
     position: absolute;
     bottom: 0;
     width: 150px;
@@ -9,7 +9,7 @@ button {
     margin-top: 50px;
 }
 
-button:hover {
+.load_more:hover {
     cursor: pointer;
     background-color: rgb(226, 136, 17);
     transform: scale(1.2); /* Vergrößert das Element um 10% */
@@ -20,5 +20,10 @@ button:hover {
 .arrows_icons {
     width: 40px;
     height: 40px;
+    cursor: pointer;
+}
+
+.detail_btn {
+    width: 30%;
     cursor: pointer;
 }
