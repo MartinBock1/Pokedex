@@ -12,7 +12,7 @@ function miniCardTemplate(pokemon) {
             */
     pokemon.name = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
     return `    
-            <div class="mini_card_body" onclick="overlayOn('${pokemon.name}')">
+            <div class="mini_card_body" onclick="overlayOn('${pokemon.name}')" title="Show Details">
                 <div class="mini_card_body_top">
                     <div>
                         #${pokemon.id}
@@ -31,7 +31,7 @@ function miniCardTemplate(pokemon) {
         `;
 }
 
-function detailCardTemplate(pokemon, direction = null, pokemonAbilities) {
+function detailCardTemplate(pokemon, pokemonAbilities) {
     return `    
             <div class="card_body">
                 <div onclick="logDownWithBubblingPrevention(event)" class="detail_card_body">
@@ -46,11 +46,10 @@ function detailCardTemplate(pokemon, direction = null, pokemonAbilities) {
                             <h3 onclick="overlayOff()" title="close">X</h3>
                         </div>                         
                     </div>
-                    <div class="detail_card_body_img" >
+                    <div class="detail_card_body_img" id="detail_card_body_${pokemon.name}">
                         <img class="pokemonImage" src="${pokemon.image}" alt="Image of ${pokemon.name}">
                     </div>
-                    <div>
-                    <img class="detail_card_icon_body" id="detail_card_icon">
+                    <div class="detail_card_icon_body" id="detail_card_icon">                 
                     </div>
                     
                     <div class="details_block">
@@ -135,7 +134,7 @@ function mainDetailsTemplate(pokemon, pokemonAbilities) {
                         Height
                     </div>
                     <div>
-                        : ${pokemon.height / 10} m
+                        : ${(pokemon.height / 10).toFixed(2).replace(".", ",") } m
                     </div>
                 </div>
                 <div class="details">
@@ -143,7 +142,7 @@ function mainDetailsTemplate(pokemon, pokemonAbilities) {
                         Weight
                     </div>
                     <div>
-                        : ${pokemon.weight} kg
+                        : ${(pokemon.weight / 10).toFixed(2).replace(".", ",")} kg
                     </div>
                 </div>
                 <div class="details">
@@ -164,7 +163,7 @@ function mainDetailsTemplate(pokemon, pokemonAbilities) {
                 </div>
                 <div class="details">
                     <div>
-                        <br>${pokemon.flavortext }
+                        <br>${pokemon.flavortext.replace("\f", "") }
                     </div>
                 </div>
             `;

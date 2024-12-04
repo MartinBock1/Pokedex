@@ -49,6 +49,8 @@ h3 {
 .detail_card_body_img {
    margin-left: auto;
    margin-right: auto;
+   
+   background-color: #0d3240;
 }
 
 .pokemonImage {
@@ -56,9 +58,15 @@ h3 {
 }
 
 .detail_card_icon_body {
+   height: 60px;
    display: flex;
    justify-content: center;
    gap: 20px;
+}
+
+.detail_card_icon_body img {
+width: 40px;
+height: 40px;
 }
 
 /* ---------------------------- Card Body Details ----------------------------- */
