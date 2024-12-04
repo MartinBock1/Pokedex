@@ -64,6 +64,10 @@ async function fetchDataJson() {
             let speciesDetails = await responseSpecies.json();          // Parse the species data
             // console.log(pokemons.types);
 
+            let responseEvolution = await fetch(speciesDetails.evolution_chain.url);    // Fetch species details for the Pokémon (e.g., color, flavor text)
+            let evolutionChainDetails = await responseEvolution.json();          // Parse the species data
+            // console.log(evolutionChainDetails.chain);
+
             // let type;   // Variable to store the type information of the Pokémon
 
             // // Loop through all the types of the Pokémon (e.g., grass, poison)
@@ -84,26 +88,30 @@ async function fetchDataJson() {
             //         type = await responseTypes.json();                              // Parse the type data
             //     }
 
-            // Push the gathered data into the pokemonList array
-            pokemonList.push({
-                name: pokemons.name,
-                id: pokemons.id,
-                image: pokemons.sprites.other.home.front_default,
-                types: pokemons.types,
-                color: speciesDetails.color.name,
-                height: pokemons.height,
-                weight: pokemons.weight,
-                baseExperience: pokemons.base_experience,
-                abilities: pokemons.abilities,
-                flavortext: speciesDetails.flavor_text_entries[0].flavor_text,
-
-            });
-            // console.log(type);
+            getPkmList(speciesDetails, evolutionChainDetails);
         }
     } catch (error) {
         console.error("Fehler beim Abrufen der Daten:", error);     // If there is an error during the API request or data processing, catch the error
         document.getElementById('content').innerHTML = `Fehler: ${error.message}`;  // Display the error message to the user on the webpage
     }
+}
+
+function getPkmList(speciesDetails, evolutionChainDetails) {
+    // Push the gathered data into the pokemonList array
+    pokemonList.push({
+        name: pokemons.name,
+        id: pokemons.id,
+        image: pokemons.sprites.other.home.front_default,
+        types: pokemons.types,
+        color: speciesDetails.color.name,
+        height: pokemons.height,
+        weight: pokemons.weight,
+        baseExperience: pokemons.base_experience,
+        abilities: pokemons.abilities,
+        flavortext: speciesDetails.flavor_text_entries[0].flavor_text,
+        evolutionChain: evolutionChainDetails.chain,
+    });
+    // console.log(pokemonList);
 }
 
 /*---------------------------------------------------------- Loading & Render Section ----------------------------------------------------------*/
@@ -243,7 +251,7 @@ function overlayOn(pokemonName) {
         // Set the background color of the detail card element with the id `detail_card_body_${selectedPokemon.name}`
         // This applies the Pokemon's color to the background
         document.getElementById(`detail_card_body_${selectedPokemon.name}`).style.backgroundColor = selectedPokemon.color;
-       
+
         // Loop through the pokemonIconNames array to display the type icons for the selected Pokemon
         // This will dynamically add the type icons to the "detail_card_icon" div
         for (let index = 0; index < pokemonIconNames.length; index++) {
@@ -326,10 +334,11 @@ function showEvoChainDetails(pokemonName) {
     mainRef.innerHTML = "";
 
     // Find selected Pokemon in the pokemonList by name
-    // let selectedPokemon = pokemonList.find(pokemon => pokemon.name === pokemonName);
+    let selectedPokemon = pokemonList.find(pokemon => pokemon.name === pokemonName);
 
-    // if (selectedPokemon) {
-    //     // Pass the selected Pokémon to the detailCardTemplate function
-    //     document.getElementById("detail_content").innerHTML = mainDetailsTemplate(selectedPokemon, pokemonAbilities);
-    // }
+    if (selectedPokemon) {
+        // Pass the selected Pokémon to the detailCardTemplate function
+        document.getElementById("detail_content").innerHTML = evoChainTemplate(selectedPokemon, pokemonAbilities);
+        console.log(selectedPokemon.id);
+    }
 }

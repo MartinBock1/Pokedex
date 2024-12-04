@@ -98,6 +98,24 @@ height: 40px;
    width: 140px;
 }
 
+.evo-chain {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.evo-chain img {
+    width: 100px;  /* Bildgröße */
+    height: 100px; /* Bildgröße */
+    border-radius: 50%;  /* Optional: Runde Bilder */
+}
+
+.evo-chain p {
+    text-align: center;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
 /* ---------------------------- Card Body Bottom ----------------------------- */
 .detail_card_body_bottom {
    background-color: #0d3240;

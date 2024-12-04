@@ -168,3 +168,35 @@ function mainDetailsTemplate(pokemon, pokemonAbilities) {
                 </div>
             `;
 }
+
+function evoChainTemplate(selectedPokemon) {
+    // Erstelle die Bild-URLs für jedes Pokémon in der Evolution
+    let getPokemonImage = (id) => `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${id}.png`;  
+
+    
+
+    // Hier wird immer die vollständige Kette angezeigt, unabhängig vom ausgewählten Pokémon
+    return `
+        <div class="evo-chain">
+            <!-- Erstes Pokémon in der Evolution -->
+            <div>
+                
+            </div>
+            <div>
+                >>
+            </div>   
+            <!-- Zweites Pokémon in der Evolution, falls vorhanden -->
+            <div>
+                
+            </div>
+            <div>
+                >>
+            </div> 
+            <!-- Drittes Pokémon in der Evolution, falls vorhanden -->
+            <div>
+                
+            </div>                    
+        </div>
+            `;
+}
+
