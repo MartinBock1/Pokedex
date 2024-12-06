@@ -41,7 +41,7 @@
  */
 
 let isLoading = false;
-let loadToId = 10;
+let loadToId = 20;
 
 let pokemons = [];
 let pokemonList = [];

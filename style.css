@@ -81,7 +81,7 @@ header img {
    border-radius: 10px;
    margin-right: 20px;
    padding-left: 10px;
-   cursor: pointer;
+   cursor: text;
 }
 
 .warning-message {
