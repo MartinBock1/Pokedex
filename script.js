@@ -41,7 +41,7 @@
  */
 
 let isLoading = false;
-let loadToId = 20;
+let loadToId = 10;
 
 let pokemons = [];
 let pokemonList = [];
@@ -217,7 +217,7 @@ function handleSearchInput(event) {
         warningElement.style.display = 'none';  // Hide the warning message (if the input is valid)
     } else {                                    // If the input length is less than 3 characters
         warningElement.style.display = 'block'; // Show the warning message        
-        renderPokemonData();                    // Show all Pokémon (as no filtering is applied with less than 3 characters)
+        renderPokemonData();                    // Show all Pokemon (as no filtering is applied with less than 3 characters)
     }
 }
 
@@ -229,11 +229,16 @@ function handleSearchInput(event) {
  */
 function filterAndShowPkm(filterWord) {
     // Filter the Pokémon based on their names
-    let filteredPokemons = pokemonList.filter(pokemon =>    // Filter the pokemonList array
-        pokemon.name.toLowerCase().includes(filterWord)     // Convert the Name to lowercase and check if it contains the filter word
+    let filteredPokemons = pokemonList.filter(pokemon =>        // Filter the pokemonList array
+        pokemon.name.toLowerCase().includes(filterWord)         // Convert the Name to lowercase and check if it contains the filter word
     );
-
-    renderFilteredPokemonData(filteredPokemons);            //  render only the filtered Pokemon
+    
+    if (filteredPokemons.length === 0) {                        // Check if any Pokemon were found        
+        let contentRef = document.getElementById('content');    // If no Pokemon were found, display an error message
+        contentRef.innerHTML = "<p>No Pokemon found matching your search criteria. Please try again.</p>";
+    } else {        
+        renderFilteredPokemonData(filteredPokemons);            // Render the filtered Pokemon data if any matches are found
+    }
 }
 
 /** Function to render the filtered Pokemon data
@@ -273,14 +278,21 @@ function overlayOn(pokemonName) {
 
     // Check if the selected Pokémon was found
     if (selectedPokemon) {
-        pokemonIconNames = []; // Initialize the variable inside the function to store the types of the selected Pokémon
+        pokemonIconNames = []; // Initialize the variable inside the function to store the types of the selected Pokemon
         for (let index = 0; index < selectedPokemon.types.length; index++) {
             pokemonIconNames.push(selectedPokemon.types[index].type.name);  // Push each Pokemon type name into the pokemonIconNames array
         }
 
-        // Set the innerHTML of the overlay to the result of the detailCardTemplate function
-        // Pass the selected Pokemon and pokemonAbilities to the function
-        document.getElementById("overlay").innerHTML = detailCardTemplate(selectedPokemon, pokemonAbilities);
+        
+        pokemonAbilities = [];  // Initialize the variable inside the function to store the types of the selected Pokeémon
+        for (let index = 0; index < selectedPokemon.abilities.length; index++) {
+            // let element = selectedPokemon.abilities[index];
+            pokemonAbilities.push(selectedPokemon.abilities[index].ability.name);    // Push each ability.name into the array
+
+            // Set the innerHTML of the overlay to the result of the detailCardTemplate function
+            // Pass the selected Pokemon and pokemonAbilities to the function
+            document.getElementById("overlay").innerHTML = detailCardTemplate(selectedPokemon, pokemonAbilities);            
+        }
 
         // Set the background color of the detail card element with the id `detail_card_body_${selectedPokemon.name}`
         // This applies the Pokemon's color to the background

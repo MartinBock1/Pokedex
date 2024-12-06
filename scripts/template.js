@@ -73,7 +73,7 @@ function detailCardTemplate(pokemon, pokemonAbilities) {
                                 <div class="detail-properties">
                                     Height
                                 </div> 
-                                <div>
+                                <div class="detail-values">
                                     : ${(pokemon.height / 10).toFixed(2).replace(".", ",")} m
                                 </div>
                             </div>
@@ -81,7 +81,7 @@ function detailCardTemplate(pokemon, pokemonAbilities) {
                                 <div class="detail-properties">
                                     Weight
                                 </div>
-                                <div>
+                                <div class="detail-values">
                                     : ${(pokemon.weight / 10).toFixed(2).replace(".", ",")} kg
                                 </div>
                             </div>
@@ -89,7 +89,7 @@ function detailCardTemplate(pokemon, pokemonAbilities) {
                                 <div class="detail-properties">
                                     Base_experience
                                 </div>
-                                <div>
+                                <div class="detail-values">
                                     : ${pokemon.baseExperience}
                                 </div>
                             </div>
@@ -97,7 +97,7 @@ function detailCardTemplate(pokemon, pokemonAbilities) {
                                 <div class="detail-properties">
                                     Abilities
                                 </div>
-                                <div>
+                                <div class="detail-values">
                                     : ${pokemonAbilities.join(", ")}
                                 </div>
                             </div>
@@ -105,7 +105,7 @@ function detailCardTemplate(pokemon, pokemonAbilities) {
                                 <div class="detail-properties">
                                     Habitat
                                 </div>
-                                <div>
+                                <div class="detail-values">
                                     : ${pokemon.habitat.name}
                                 </div>
                             </div>
@@ -113,7 +113,7 @@ function detailCardTemplate(pokemon, pokemonAbilities) {
                                 <div class="detail-properties">
                                     Shape
                                 </div>
-                                <div>
+                                <div class="detail-values">
                                     : ${pokemon.shape.name}
                                 </div>
                             </div>
@@ -172,7 +172,7 @@ function mainDetailsTemplate(pokemon, pokemonAbilities) {
                         Abilities
                     </div>
                     <div>
-                        : ${pokemonAbilities.join(", ")}
+                        : ${pokemonAbilities.ability.join(", ")}
                     </div>
                 </div>
                 <div class="details">
