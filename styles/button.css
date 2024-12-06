@@ -1,4 +1,4 @@
-.load_more {
+.load-more {
     position: absolute;
     bottom: 0;
     width: 150px;
@@ -6,10 +6,10 @@
     border-radius: 10px;
     font-size: 18px;
     font-weight: bold;
-    margin-top: 50px;
+    margin-bottom: 10px;
 }
 
-.load_more:hover {
+.load-more:hover {
     cursor: pointer;
     background-color: rgb(226, 136, 17);
     transform: scale(1.2); /* Vergrößert das Element um 10% */
@@ -17,13 +17,13 @@
     z-index: 2;
 }
 
-.arrows_icons {
+.arrows-icons {
     width: 40px;
     height: 40px;
-    cursor: pointer;
+    cursor: grab;
 }
 
-.detail_btn {
+.detail-btn {
     width: 30%;
     cursor: pointer;
 }

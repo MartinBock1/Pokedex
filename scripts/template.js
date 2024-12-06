@@ -1,4 +1,4 @@
-function miniCardTemplate(pokemon) {   
+function miniCardTemplate(pokemon) {
     /** pokemonName firstChar uppercase
              * Get the first character of the name string (character at index 0).
              * Example: For "pikachu", this would be "p".
@@ -12,8 +12,8 @@ function miniCardTemplate(pokemon) {
             */
     pokemon.name = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
     return `    
-            <div class="mini_card_body" onclick="overlayOn('${pokemon.name}')" title="Show Details">
-                <div class="mini_card_body_top">
+            <div class="mini-card-body" onclick="overlayOn('${pokemon.name}')" title="Show Details">
+                <div class="mini-card-body-top">
                     <div>
                         #${pokemon.id}
                     </div>
@@ -22,10 +22,10 @@ function miniCardTemplate(pokemon) {
                     </div>
                     <div></div>                         
                 </div>
-                <div class="mini_card_body_img" id="mini_card_body_${pokemon.name}">
+                <div class="mini-card-body-img" id="mini_card_body_${pokemon.name}">
                     <img src="${pokemon.image}" alt="Image of ${pokemon.name}">
                 </div>
-                <div class="mini_card_body_bottom" id="mini_card_icon_${pokemon.name}">
+                <div class="mini-card-body-bottom" id="mini_card_icon_${pokemon.name}">
                 </div>                    
             </div>
         `;
@@ -33,9 +33,9 @@ function miniCardTemplate(pokemon) {
 
 function detailCardTemplate(pokemon, pokemonAbilities) {
     return `    
-            <div class="card_body">
-                <div onclick="logDownWithBubblingPrevention(event)" class="detail_card_body">
-                    <div class="detail_card_body_top">
+            <div class="card-body">
+                <div onclick="logDownWithBubblingPrevention(event)" class="detail-card-body">
+                    <div class="detail-card-body-top">
                         <div>
                             #${pokemon.id}
                         </div>
@@ -46,35 +46,39 @@ function detailCardTemplate(pokemon, pokemonAbilities) {
                             <h3 onclick="overlayOff()" title="close">X</h3>
                         </div>                         
                     </div>
-                    <div class="detail_card_body_img" id="detail_card_body_${pokemon.name}">
-                        <img class="pokemonImage" src="${pokemon.image}" alt="Image of ${pokemon.name}">
+                    <div class="detail-card-body-img" id="detail_card_body_${pokemon.name}">
+                        <img onclick="overlayOn('${getNextPokemonName(pokemon.name, -1)}')" 
+                                class="arrows-icons" src="./img/icons/arrow_back.png" title="back">
+                        <img class="pokemon-image" src="${pokemon.image}" alt="Image of ${pokemon.name}">
+                        <img onclick="overlayOn('${getNextPokemonName(pokemon.name, 1)}')" 
+                            class="arrows-icons" src="./img/icons/arrow_forward.png" title="next">
                     </div>
-                    <div class="detail_card_icon_body" id="detail_card_icon">                 
+                    <div class="detail-card-icon-body" id="detail_card_icon">                 
                     </div>
                     
-                    <div class="details_block">
+                    <div class="details-block">
                         <div class="nav">
-                            <button class="detail_btn" onclick="showMainDetails('${pokemon.name}')">
+                            <button class="detail-btn" onclick="showMainDetails('${pokemon.name}')">
                                 main
                             </button>
-                            <button class="detail_btn" onclick="showStatsDetails('${pokemon.name}')">
+                            <button class="detail-btn" onclick="showStatsDetails('${pokemon.name}')">
                                 stats
                             </button>
-                            <button class="detail_btn" onclick="showEvoChainDetails('${pokemon.name}')">
+                            <button class="detail-btn" onclick="showEvoChainDetails('${pokemon.name}')">
                                 Evo chain
                             </button>
                         </div>                        
-                        <div class="detail_content" id="detail_content">
+                        <div class="detail-content" id="detail_content">
                             <div class="details">
-                                <div class="detail_properties">
+                                <div class="detail-properties">
                                     Height
                                 </div> 
                                 <div>
-                                    : ${(pokemon.height / 10).toFixed(2).replace(".", ",") } m
+                                    : ${(pokemon.height / 10).toFixed(2).replace(".", ",")} m
                                 </div>
                             </div>
                             <div class="details">
-                                <div class="detail_properties">
+                                <div class="detail-properties">
                                     Weight
                                 </div>
                                 <div>
@@ -82,7 +86,7 @@ function detailCardTemplate(pokemon, pokemonAbilities) {
                                 </div>
                             </div>
                             <div class="details">
-                                <div class="detail_properties">
+                                <div class="detail-properties">
                                     Base_experience
                                 </div>
                                 <div>
@@ -90,26 +94,36 @@ function detailCardTemplate(pokemon, pokemonAbilities) {
                                 </div>
                             </div>
                             <div class="details">
-                                <div class="detail_properties">
+                                <div class="detail-properties">
                                     Abilities
                                 </div>
                                 <div>
-                                    : ${pokemonAbilities.join(", ") }
+                                    : ${pokemonAbilities.join(", ")}
+                                </div>
+                            </div>
+                            <div class="details">
+                                <div class="detail-properties">
+                                    Habitat
+                                </div>
+                                <div>
+                                    : ${pokemon.habitat.name}
+                                </div>
+                            </div>
+                            <div class="details">
+                                <div class="detail-properties">
+                                    Shape
+                                </div>
+                                <div>
+                                    : ${pokemon.shape.name}
                                 </div>
                             </div>
                             <div class="details">                                
                                 <div>
-                                    <br>${pokemon.flavortext.replace("\f", "") }
+                                    <br>${pokemon.flavortext.replace("\f", "")}
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="detail_card_body_bottom">
-                        <img onclick="overlayOn('${getNextPokemonName(pokemon.name, -1)}')" 
-                            class="arrows_icons" src="./img/icons/arrows_left_red.png" title="back">                        
-                        <img onclick="overlayOn('${getNextPokemonName(pokemon.name, 1)}')" 
-                            class="arrows_icons" src="./img/icons/arrows_right_red.png" title="next">
-                    </div>                    
+                    </div>                              
                 </div>
             </div>
         `;
@@ -117,28 +131,28 @@ function detailCardTemplate(pokemon, pokemonAbilities) {
 
 function loadingSpinnerTemplate() {
     return `
-                <div class="spinner_img">
+                <div class="spinner-img">
                     <img src="./img/superball.png" alt="">
                     
                 </div>
-                <div class="loading_text">
+                <div class="loading-text">
                     load Pokemons...
                 </div>
-            `;    
+            `;
 }
 
 function mainDetailsTemplate(pokemon, pokemonAbilities) {
     return `
                 <div class="details">
-                    <div class="detail_properties">
+                    <div class="detail-properties">
                         Height
                     </div>
                     <div>
-                        : ${(pokemon.height / 10).toFixed(2).replace(".", ",") } m
+                        : ${(pokemon.height / 10).toFixed(2).replace(".", ",")} m
                     </div>
                 </div>
                 <div class="details">
-                    <div class="detail_properties">
+                    <div class="detail-properties">
                         Weight
                     </div>
                     <div>
@@ -146,7 +160,7 @@ function mainDetailsTemplate(pokemon, pokemonAbilities) {
                     </div>
                 </div>
                 <div class="details">
-                    <div class="detail_properties">
+                    <div class="detail-properties">
                         Base_experience
                     </div>
                     <div>
@@ -154,48 +168,115 @@ function mainDetailsTemplate(pokemon, pokemonAbilities) {
                     </div>
                 </div>
                 <div class="details">
-                    <div class="detail_properties">
+                    <div class="detail-properties">
                         Abilities
                     </div>
                     <div>
-                        : ${pokemonAbilities.join(", ") }
+                        : ${pokemonAbilities.join(", ")}
                     </div>
                 </div>
                 <div class="details">
+                    <div class="detail-properties">
+                        Habitat
+                    </div>
                     <div>
-                        <br>${pokemon.flavortext.replace("\f", "") }
+                        : ${pokemon.habitat.name}
+                    </div>
+                </div>
+                <div class="details">
+                    <div class="detail-properties">
+                        Shape
+                    </div>
+                    <div>
+                        : ${pokemon.shape.name}
+                    </div>
+                </div>
+                <div class="details">                                
+                    <div>
+                        <br>${pokemon.flavortext.replace("\f", "")}
                     </div>
                 </div>
             `;
 }
 
-function evoChainTemplate(selectedPokemon) {
-    // Erstelle die Bild-URLs für jedes Pokémon in der Evolution
-    let getPokemonImage = (id) => `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${id}.png`;  
+function statsTemplate(selectedPokemon) {
+    let maxStatValue = 255;  // Maximale Stat-Werte für die Skalierung (normalerweise 255)    
 
-    
+    // Hilfsfunktion, um den Fortschrittsbalken zu erstellen
+    function createProgressBar(statValue) {
+        let percentage = (statValue / maxStatValue) * 100; // Berechnung des Prozentsatzes
+        return `
+            <div class="progress-bar-container">
+                <div class="progress-bar" style="width: ${percentage}%;"></div>
+            </div>
+        `;
+    }
+    return `      
+                <div class="details">
+                    <div class="detail-properties">
+                        ${selectedPokemon.stats[0].stat.name} 
+                    </div>
+                    <div class="stats-values">                        
+                        : ${selectedPokemon.stats[0].base_stat} / 255
+                    </div>                    
+                     ${createProgressBar(selectedPokemon.stats[0].base_stat)}
+                    
+                </div>
+                <div class="details">
+                    <div class="detail-properties">
+                        ${selectedPokemon.stats[1].stat.name} 
+                    </div>
+                    <div class="stats-values">                      
+                        : ${selectedPokemon.stats[1].base_stat} / 255
+                    </div>
+                    ${createProgressBar(selectedPokemon.stats[1].base_stat)}
+                </div>
+                <div class="details">
+                    <div class="detail-properties">
+                        ${selectedPokemon.stats[2].stat.name} 
+                    </div>
+                    <div class="stats-values">                     
+                        : ${selectedPokemon.stats[2].base_stat} / 255
+                    </div>
+                    ${createProgressBar(selectedPokemon.stats[2].base_stat)}
+                </div>
+                <div class="details">
+                    <div class="detail-properties">
+                        ${selectedPokemon.stats[3].stat.name} 
+                    </div>
+                    <div class="stats-values">                      
+                        : ${selectedPokemon.stats[3].base_stat} / 255
+                    </div>
+                    ${createProgressBar(selectedPokemon.stats[3].base_stat)}
+                </div>
+                <div class="details">
+                    <div class="detail-properties">
+                        ${selectedPokemon.stats[4].stat.name} 
+                    </div>
+                    <div class="stats-values">                      
+                        : ${selectedPokemon.stats[4].base_stat} / 255
+                    </div>
+                    ${createProgressBar(selectedPokemon.stats[4].base_stat)}
+                </div>
+                <div class="details">
+                    <div class="detail-properties">
+                        ${selectedPokemon.stats[5].stat.name} 
+                    </div>
+                    <div class="stats-values">                      
+                        : ${selectedPokemon.stats[5].base_stat} / 255
+                    </div>
+                    ${createProgressBar(selectedPokemon.stats[5].base_stat)}
+                </div>
+            `;
+}
 
-    // Hier wird immer die vollständige Kette angezeigt, unabhängig vom ausgewählten Pokémon
+function evoChainTemplate() {
     return `
         <div class="evo-chain">
             <!-- Erstes Pokémon in der Evolution -->
             <div>
-                
-            </div>
-            <div>
-                >>
-            </div>   
-            <!-- Zweites Pokémon in der Evolution, falls vorhanden -->
-            <div>
-                
-            </div>
-            <div>
-                >>
-            </div> 
-            <!-- Drittes Pokémon in der Evolution, falls vorhanden -->
-            <div>
-                
-            </div>                    
+                Comming soon...
+            </div>                           
         </div>
             `;
 }

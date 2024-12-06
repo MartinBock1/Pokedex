@@ -1,26 +1,47 @@
 /** TODO
- * bestimmte Anzahl an Pokemon Karten direkt rendern
- * Button, um weitere 20-40 Pokemon zu laden
- * Loadingscreen 
- * Button kann während des Ladens nicht erneut angeklickt werden
+ * bestimmte Anzahl an Pokemon Karten direkt rendern                                            - checked
+ * Button, um weitere 20-40 Pokemon zu laden                                                    - checked
+ * Loadingscreen                                                                                - checked
+ * Button kann während des Ladens nicht erneut angeklickt werden                                - checked
  * 
  * Sichtbar auf kleinen Pokemon Karte:
- *  -  Name / Typ / Bild des Pokemons / Hintergrundfarbe passend zum Typ / ID (optional)
- * Hover-Effekt auf der kleinen Pokemon Karte:
- *  - cursor-pointer
+ *  -  Name / Typ / Bild des Pokemons / Hintergrundfarbe passend zum Typ / ID (optional)        - checked
+ * Hover-Effekt auf der kleinen Pokemon Karte:                                                  - checked
+ *  - cursor-pointer                                                                            - checked
  * z.B. Pokemon erscheint größer etc. (optional)
  * 
  * 
  * Große Ansicht:
- * Beim Klicken auf die Pokemonkarte soll sich diese in groß öffnen.
- * Benutze ein transparentes Overlay
- * Der Hintergrund ist nicht scrollbar in der großen Ansicht.
- * gewisse Werte wie z.B. hp/ attack/ defense etc anzeigen
- * Pfeile oder ähnliches, um zwischen den Karten in der großen Ansicht zu wechseln
+ * Beim Klicken auf die Pokemonkarte soll sich diese in groß öffnen.                            - checked
+ * Benutze ein transparentes Overlay                                                            - checked
+ * Der Hintergrund ist nicht scrollbar in der großen Ansicht.                                   - checked
+ * gewisse Werte wie z.B. hp/ attack/ defense etc anzeigen                                      - checked
+ * Pfeile oder ähnliches, um zwischen den Karten in der großen Ansicht zu wechseln              - checked
+ * 
+ * Code:
+ * Aussagekräftige Namen für Funktionen und Variablen                                           - checked
+ * camelCase für die Benennung / class: '-', id: '_'                                            - checked
+ * Code ist formatiert                                                                          - checked
+ * Höchstens 14 Zeilen pro Funktion                                                             - ???
+ * Gleicher Abstand zwischen Funktionen (1 oder 2 Leerzeilen) *                                 - checked
+ * Lagere HTML Templates aus in extra-Funktionen                                                - checked
+ * 
+ * Responsive:
+ * Bis 320px Breite alles responsive ohne Scrollbalken                                          - checked
+ * Content-Begrenzung für große Monitore (max-width z.B. bei 1920px oder 1440px)                - checked
+ * 
+ * Sonstiges:
+ * Favicon                                                                                      - checked
+ * Dokumenten Titel                                                                             - checked
+ * Header mit: 
+ *  - Logo                                                                                      - checked
+ *  - Titel                                                                                     - checked
+ *  - Suchleiste (man soll mindestens 3 Buchstaben)                                             - checked
+ * Footer                                                                                       - checked
  */
 
 let isLoading = false;
-let loadToId = 6;
+let loadToId = 10;
 
 let pokemons = [];
 let pokemonList = [];
@@ -28,6 +49,7 @@ let pokemon;
 let pokemonIconNames = [];
 let Type = [];
 let pokemonAbilities = [];
+let pokemonStats = [];
 
 /*------------------------------------------------------------ Init & Fetch Section ------------------------------------------------------------*/
 async function init() {
@@ -36,6 +58,7 @@ async function init() {
     // Add an event listener to the 'search' input element that listens for user input
     // When the input changes, it will trigger the handleSearchInput function
     document.getElementById('search').addEventListener('input', handleSearchInput);
+    document.getElementById("myButton").disabled = false;   // enable the loadMore button 
 }
 
 /** Define an asynchronous function to fetch and process data from the Pokemon API
@@ -44,14 +67,13 @@ async function init() {
 async function fetchDataJson() {
     try {
         let fetchPkm = `https://pokeapi.co/api/v2/pokemon?limit=${loadToId}&offset=0`;
-        let responseAPI = await fetch(fetchPkm);            // Fetch data from the Pokémon API, with a dynamic limit and offset based on 'loadToId'
-        let responseApiAsJson = await responseAPI.json();   // get a JSON for each loaded pokemon (e.g. results[])
-        pokemonList = [];                                   // Clear the pokemonList before refilling it with new data
+        let responseAPI = await fetch(fetchPkm);                        // Fetch data from the Pokemon API, with a dynamic limit and offset based on 'loadToId'
+        let responseApiAsJson = await responseAPI.json();               // get a JSON for each loaded pokemon (e.g. results[])
+        pokemonList = [];                                               // Clear the pokemonList before refilling it with new data
 
         // Loop through each Pokemon in the results array
         for (let i = 0; i < responseApiAsJson.results.length; i++) {
-            let pokemonData = responseApiAsJson.results[i]; // get name % url of each loaded Pokemon
-            // console.log(responseApiAsJson);
+            let pokemonData = responseApiAsJson.results[i];             // get name % url of each loaded Pokemon
 
             /** get firstleveldetails for each pokemon
              * e.g. id, names, species, sprites for images, types(e.g. grass, poison), weight
@@ -62,37 +84,15 @@ async function fetchDataJson() {
 
             let responseSpecies = await fetch(pokemons.species.url);    // Fetch species details for the Pokémon (e.g., color, flavor text)
             let speciesDetails = await responseSpecies.json();          // Parse the species data
-            // console.log(pokemons.types);
 
             let responseEvolution = await fetch(speciesDetails.evolution_chain.url);    // Fetch species details for the Pokémon (e.g., color, flavor text)
-            let evolutionChainDetails = await responseEvolution.json();          // Parse the species data
-            // console.log(evolutionChainDetails.chain);
-
-            // let type;   // Variable to store the type information of the Pokémon
-
-            // // Loop through all the types of the Pokémon (e.g., grass, poison)
-            // for (let j = 0; j < pokemons.types.length; j++) {
-            //     let responseTypes = await fetch(pokemons.types[j].type.url);    // Fetch additional type details for each type (e.g., names and properties)
-            //     type = await responseTypes.json();                              // Parse the type data
-            // }
-            // // Loop through each Pokémon in the results array
-            // for (let pokemonData of responseApiAsJson.results) {
-            //     // Fetch Pokémon details
-            //     pokemons = await (await fetch(pokemonData.url)).json();
-            //     let speciesDetails = await (await fetch(pokemons.species.url)).json();
-
-            //     let type;   // Variable to store the type information of the Pokémon
-            //     // Loop through all the types of the Pokémon (e.g., grass, poison)
-            //     for (let j = 0; j < pokemons.types.length; j++) {
-            //         let responseTypes = await fetch(pokemons.types[j].type.url);    // Fetch additional type details for each type (e.g., names and properties)
-            //         type = await responseTypes.json();                              // Parse the type data
-            //     }
+            let evolutionChainDetails = await responseEvolution.json();                 // Parse the species data                       
 
             getPkmList(speciesDetails, evolutionChainDetails);
         }
     } catch (error) {
-        console.error("Fehler beim Abrufen der Daten:", error);     // If there is an error during the API request or data processing, catch the error
-        document.getElementById('content').innerHTML = `Fehler: ${error.message}`;  // Display the error message to the user on the webpage
+        console.error("Fehler beim Abrufen der Daten:", error);         // If there is an error during the API request or data processing, catch the error
+        document.getElementById('content').innerHTML = `Fehler: ${error.message}`;      // Display the error message to the user on the webpage
     }
 }
 
@@ -108,62 +108,94 @@ function getPkmList(speciesDetails, evolutionChainDetails) {
         weight: pokemons.weight,
         baseExperience: pokemons.base_experience,
         abilities: pokemons.abilities,
-        flavortext: speciesDetails.flavor_text_entries[0].flavor_text,
+        flavortext: speciesDetails.flavor_text_entries[10].flavor_text,
+        habitat: speciesDetails.habitat,
+        shape: speciesDetails.shape,
         evolutionChain: evolutionChainDetails.chain,
+        stats: pokemons.stats,
+
     });
     // console.log(pokemonList);
 }
 
 /*---------------------------------------------------------- Loading & Render Section ----------------------------------------------------------*/
+/** Function controls the display of a loading spinner during data fetching.
+ * It ensures that the page only loads one set of data at a time by checking and setting the isLoading variable. 
+ * Once the data is fetched and rendered, the spinner is hidden, and the page is updated with the new content. 
+ * This prevents users from triggering multiple loading processes simultaneously and provides a smooth experience 
+ * during asynchronous data loading.
+ */
 async function loadingSpinner() {
-    if (!isLoading) {
-        isLoading = true;
-        let loadingRef = document.getElementById('loadingSpinner');
-        loadingRef.innerHTML = "";
+    if (!isLoading) {                                               // Check if loading is not already in progress
+        isLoading = true;                                           // Set isLoading to true to indicate that loading is now in progress
+        let loadingRef = document.getElementById('loadingSpinner'); // Get the reference to the element with the ID 'loadingSpinner'
+        loadingRef.innerHTML = "";                                  // Clear any existing content inside the loading spinner element
+
+        // Set the content of the loading spinner element to a new loading spinner template
         document.getElementById('loadingSpinner').innerHTML = loadingSpinnerTemplate();
 
-        await fetchDataJson();
-        renderPokemonData();
+        await fetchDataJson();                                      // Wait for the data to be fetched asynchronously (likely from an API or server)
+        renderPokemonData();                                        // After data is fetched, render the Pokemon data to the page
+        document.getElementById("myButton").disabled = false;       // enable the loadMore button 
 
-        isLoading = false;
-        loadingRef.innerHTML = "";
+        isLoading = false;                                          // Set isLoading to false to indicate that loading is complete
+        loadingRef.innerHTML = "";                                  // Clear the content of the loading spinner element to hide it
     }
 }
 
+/** Function is ltriggered when a user wants to load more content (such as when clicking a button).
+ * clears the current content displayed on the page, 
+ * doubles a variable (loadToId) that tracks how much content is loaded, 
+ * displays a loading spinner, and logs the updated loadToId for debugging.
+ */
 async function loadMore() {
-    let contentRef = document.getElementById('content');
-    contentRef.innerHTML = "";
-    loadToId = loadToId + loadToId;
-    loadingSpinner();
-    console.log(loadToId);
+    let contentRef = document.getElementById('content');    // Get the reference to the content container in the HTML
+    contentRef.innerHTML = "";                              // Clear the existing content inside the content container
+    loadToId = loadToId + loadToId;                         // Double the value of loadToId (possibly to load more items in increments)
+    loadingSpinner();                                       // Call the loadingSpinner function to show a loading animation
+    console.log(loadToId);                                  // Log the current value of loadToId to the console for debugging
+    document.getElementById("myButton").disabled = true;    // disable the loadMore button 
 }
 
+/** Function renders a list of Pokemon in a specified format on a webpage
+ * Loops through each Pokemon in pokemonList.
+ * Dynamically generates and adds a "mini card" for each Pokemon to the webpage.
+ * The background color of each mini card is set based on the Pokemon's color.
+ * The type icons are loaded from image files and added to each Pokemon's mini card.
+ */
 async function renderPokemonData() {
-    let contentRef = document.getElementById('content');
-    contentRef.innerHTML = "";
+    let contentRef = document.getElementById('content');    // Get the reference to the content container in the HTML
+    contentRef.innerHTML = "";                              // Clear the existing content in the container
 
-    for (let i = 0; i < pokemonList.length; i++) {
-        pokemon = pokemonList[i];
-        // console.log(pokemon.name);
+    for (let i = 0; i < pokemonList.length; i++) {          // Loop through each Pokemon in the pokemonList
+        pokemon = pokemonList[i];                           // Get the current Pokemon object 
 
-        document.getElementById('content').innerHTML += miniCardTemplate(pokemon);
+        document.getElementById('content').innerHTML += miniCardTemplate(pokemon);  // Add the mini card template for the current Pokemon
+
+        // Set the background color of the mini card based on the Pokemon's color
         document.getElementById(`mini_card_body_${pokemon.name}`).style.backgroundColor = pokemon.color;
 
-        pokemonIconNames = [];
-        for (let j = 0; j < pokemon.types.length; j++) {
-            pokemonIconNames.push(pokemon.types[j].type.name);
+        pokemonAbilities = [];                                          // Initialize an empty array to store the abilities of the Pokemon
+        for (let k = 0; k < pokemon.abilities.length; k++) {            // Loop through the abilities of the current Pokemon
+            pokemonAbilities.push(pokemon.abilities[k].ability.name);   // Push each ability.name into the pokemonAbilities array (to display in main)
         }
-        // console.log(pokemons.types);
 
-        pokemonAbilities = [];
-        for (let k = 0; k < pokemon.abilities.length; k++) {
-            pokemonAbilities.push(pokemon.abilities[k].ability.name);
+        pokemonStats = [];                                              // Initialize an empty array to store the stats of the Pokemon
+        for (let l = 0; l < pokemon.stats.length; l++) {                // Loop through the stats of the current Pokemon
+            pokemonStats.push(pokemon.stats[l]);                        // Push each stat object into the pokemonStats array (to display in stats)
         }
-        // console.log(pokemonAbilities); 
 
 
-        let iconElement = document.getElementById(`mini_card_icon_${pokemon.name}`);
-        for (let index = 0; index < pokemonIconNames.length; index++) {
+        // Initialize an array to hold the Pokemon's type icon names;
+        let pokemonIconNames = [];                                      // Initialize an array to hold the type icon names of the Pokemon
+        for (let j = 0; j < pokemon.types.length; j++) {                // Loop through the types of the current Pokemon
+            pokemonIconNames.push(pokemon.types[j].type.name);          // Push each type name into the pokemonIconNames array (to display icons)
+        }
+
+        let iconElement = document.getElementById(`mini_card_icon_${pokemon.name}`);    // Get the reference to the element where type icons will be inserted
+        for (let index = 0; index < pokemonIconNames.length; index++) {                 // Loop through the type icon names of the current Pokemon
+
+            // For each type, add the appropriate type icon image to the IconElement
             iconElement.innerHTML += `<img src="./img/pokedex_icons/typeIcon_${pokemonIconNames[index]}.png" alt="${pokemonIconNames[index]}">`;
         }
     }
@@ -201,11 +233,10 @@ function filterAndShowPkm(filterWord) {
         pokemon.name.toLowerCase().includes(filterWord)     // Convert the Name to lowercase and check if it contains the filter word
     );
 
-    // Now render only the filtered Pokemon
-    renderFilteredPokemonData(filteredPokemons);            // Call a function to render the filtered Pokemon on the page    
+    renderFilteredPokemonData(filteredPokemons);            //  render only the filtered Pokemon
 }
 
-/** Function to render the filtered Pokémon data
+/** Function to render the filtered Pokemon data
  * @param {*} filteredPokemons 
  */
 async function renderFilteredPokemonData(filteredPokemons) {
@@ -217,8 +248,9 @@ async function renderFilteredPokemonData(filteredPokemons) {
 
         // Create and display the mini card for the current Pokémon
         contentRef.innerHTML += miniCardTemplate(pokemon);  // Add the mini card HTML template for the Pokémon to the content area
-        document.getElementById(`mini_card_body_${pokemon.name}`)
-            .style.backgroundColor = pokemon.color;         // Set the background color of the mini card based on the Pokémon's color
+
+        // Set the background color of the mini card based on the Pokémon's color
+        document.getElementById(`mini_card_body_${pokemon.name}`).style.backgroundColor = pokemon.color;
 
         let iconElement = document.getElementById(`mini_card_icon_${pokemon.name}`);    // Get the reference to the icon container in the mini card
         for (let index = 0; index < pokemon.types.length; index++) {                    // Loop through all types of the Pokémon
@@ -226,8 +258,6 @@ async function renderFilteredPokemonData(filteredPokemons) {
             iconElement.innerHTML += `<img src="./img/pokedex_icons/typeIcon_${pokemon.types[index].type.name}.png" alt="${pokemon.types[index].type.name}">`;
         }
     }
-    let searchRef = document.getElementById('search');      // Get the reference to the search input field
-    searchRef.value = "";                                   // Clear the search field's value (this will reset the search input field)
 }
 
 /*---------------------------------------------------------- Overlay On & Off Section ----------------------------------------------------------*/
@@ -240,10 +270,14 @@ function overlayOn(pokemonName) {
     document.body.style.overflow = "hidden";                        // Disable scrolling on the body by setting the overflow style to "hidden"
 
     let selectedPokemon = pokemonList.find(pokemon => pokemon.name === pokemonName); // Find selected Pokemon in the pokemonList by name
-    // console.log(pokemon.type);      
 
     // Check if the selected Pokémon was found
     if (selectedPokemon) {
+        pokemonIconNames = []; // Initialize the variable inside the function to store the types of the selected Pokémon
+        for (let index = 0; index < selectedPokemon.types.length; index++) {
+            pokemonIconNames.push(selectedPokemon.types[index].type.name);  // Push each Pokemon type name into the pokemonIconNames array
+        }
+
         // Set the innerHTML of the overlay to the result of the detailCardTemplate function
         // Pass the selected Pokemon and pokemonAbilities to the function
         document.getElementById("overlay").innerHTML = detailCardTemplate(selectedPokemon, pokemonAbilities);
@@ -255,9 +289,8 @@ function overlayOn(pokemonName) {
         // Loop through the pokemonIconNames array to display the type icons for the selected Pokemon
         // This will dynamically add the type icons to the "detail_card_icon" div
         for (let index = 0; index < pokemonIconNames.length; index++) {
-            document.getElementById('detail_card_icon').innerHTML += `<img src="./img/pokedex_icons/typeIcon_${pokemonIconNames[index]}.png" alt="${pokemonIconNames[index]}">`;
+            document.getElementById('detail_card_icon').innerHTML += `<img src="./img/pokedex_icons/typeIcon_${pokemonIconNames[index]}.png" alt="${pokemonIconNames[index]}" title="${pokemonIconNames[index]}">`;
         }
-        // console.log(selectedPokemon);
     }
 }
 
@@ -304,8 +337,7 @@ function logDownWithBubblingPrevention(event) {
 
 /*-------------------------------------------------------- Show Pokemon Details Section --------------------------------------------------------*/
 function showMainDetails(pokemonName) {
-    let mainRef = document.getElementById('detail_content');
-    mainRef.innerHTML = "";
+    clearMainRef();
 
     // Find selected Pokemon in the pokemonList by name
     let selectedPokemon = pokemonList.find(pokemon => pokemon.name === pokemonName);
@@ -317,21 +349,20 @@ function showMainDetails(pokemonName) {
 }
 
 function showStatsDetails(pokemonName) {
-    let mainRef = document.getElementById('detail_content');
-    mainRef.innerHTML = "";
+    clearMainRef();
 
     // Find selected Pokemon in the pokemonList by name
-    // let selectedPokemon = pokemonList.find(pokemon => pokemon.name === pokemonName);
+    let selectedPokemon = pokemonList.find(pokemon => pokemon.name === pokemonName);
 
-    // if (selectedPokemon) {
-    //     // Pass the selected Pokémon to the detailCardTemplate function
-    //     document.getElementById("detail_content").innerHTML = mainDetailsTemplate(selectedPokemon, pokemonAbilities);
-    // }
+    if (selectedPokemon) {
+        // Pass the selected Pokemon to the detailCardTemplate function
+        document.getElementById("detail_content").innerHTML = statsTemplate(selectedPokemon);
+    }
+    console.log(selectedPokemon.stats[0].base_stat);
 }
 
 function showEvoChainDetails(pokemonName) {
-    let mainRef = document.getElementById('detail_content');
-    mainRef.innerHTML = "";
+    clearMainRef();
 
     // Find selected Pokemon in the pokemonList by name
     let selectedPokemon = pokemonList.find(pokemon => pokemon.name === pokemonName);
@@ -339,6 +370,10 @@ function showEvoChainDetails(pokemonName) {
     if (selectedPokemon) {
         // Pass the selected Pokémon to the detailCardTemplate function
         document.getElementById("detail_content").innerHTML = evoChainTemplate(selectedPokemon, pokemonAbilities);
-        console.log(selectedPokemon.id);
     }
+}
+
+function clearMainRef() {
+    let mainRef = document.getElementById('detail_content');    // Get the element with the ID 'detail_content' to display the details
+    mainRef.innerHTML = "";                                     // Clear the current content inside 'detail_content' to prepare for new data
 }

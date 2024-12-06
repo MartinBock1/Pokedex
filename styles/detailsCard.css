@@ -13,12 +13,12 @@
    cursor: pointer;
 }
 
-.card_body {
+.card-body {
    display: flex;
    justify-content: center;
 }
 
-.detail_card_body {
+.detail-card-body {
    height: 700px;
    width: 400px;
    background-color: #07222b;
@@ -38,7 +38,7 @@ h3 {
    cursor: pointer;
 }
 
-.detail_card_body_top {
+.detail-card-body-top {
    height: 20px;
    padding: 20px 20px;
    display: flex;
@@ -46,46 +46,54 @@ h3 {
 }
 
 /* ---------------------------- Card Body Img ----------------------------- */
-.detail_card_body_img {
+.detail-card-body-img {
    margin-left: auto;
    margin-right: auto;
-   
+   border-radius: 50%;
    background-color: #0d3240;
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   justify-content: space-between;
 }
 
-.pokemonImage {
+.pokemon-image {
    height: 300px;
 }
 
-.detail_card_icon_body {
+.detail-card-icon-body {
    height: 60px;
    display: flex;
    justify-content: center;
+   align-items: center;
    gap: 20px;
 }
 
-.detail_card_icon_body img {
-width: 40px;
-height: 40px;
+.detail-card-icon-body img {
+   width: 40px;
+   height: 40px;
+}
+
+.detail-card-icon-body img:hover {
+   cursor: zoom-in;
+   width: 60px;
+   height: 60px;
 }
 
 /* ---------------------------- Card Body Details ----------------------------- */
-.details_block {
+.details-block {
    display: flex;
    flex-direction: column;
-   /* margin-top: 100px; */
 }
 .nav {
    display: flex;
    justify-content: space-around;
-   /* margin-top: 55px; */
 }
 
-.detail_content {
+.detail-content {
    background-color: #0d3340;
-   min-height: 130px;
+   min-height: 270px;
    padding: 10px 20px;
-   /* border: 1px solid; */
 }
 
 .details {
@@ -94,27 +102,47 @@ height: 40px;
    display: flex;
 }
 
-.detail_properties {
-   width: 140px;
+.detail-properties {
+   width: 130px;
+}
+
+.detail-content {
+   width: auto;
+}
+
+.stats-properties {
+   width: 130px;
+}
+
+.stats-values {
+   width: 100px;
+}
+
+.stat-bar {
+   width: 200px;
+}
+
+.progress-bar-container {
+    width: 100px; 
+    background-color: #e0e0e0; 
+    border-radius: 5px; 
+    height: 10px; 
+}
+
+.progress-bar {
+    background-color: #00bfae; 
+    height: 100%; 
+    border-radius: 5px; 
 }
 
 .evo-chain {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
+   display: flex;
+   align-items: center;
+   justify-content: space-around;
+   height: 100%;
 }
 
-.evo-chain img {
-    width: 100px;  /* Bildgröße */
-    height: 100px; /* Bildgröße */
-    border-radius: 50%;  /* Optional: Runde Bilder */
-}
 
-.evo-chain p {
-    text-align: center;
-    font-size: 14px;
-    margin-top: 5px;
-}
 
 /* ---------------------------- Card Body Bottom ----------------------------- */
 .detail_card_body_bottom {

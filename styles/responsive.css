@@ -1,7 +1,11 @@
 @media (max-width: 520px) {
-    header {    
-    height: 100px;
-}
+   header {
+      height: 100px;
+   }
+
+   .spinner-img img {
+      width: 50%;
+   }
 
    .header-content {
       font-size: 32px;
@@ -18,6 +22,55 @@
    }
 
    .header-text {
-    margin-bottom: 10px;
+      margin-bottom: 10px;
+   }
 }
+
+@media (max-width: 380px) {
+   .detail-card-body {
+      height: 600px;
+      width: 300px;
+      overflow: auto;
+   }
+
+   .pokemon-image {
+      height: 200px;
+      width: 180px;
+   }
+
+   .detail-content {
+      padding: 0;
+      font-size: 14px;
+   }
+
+   .details {
+      padding-left: 5px;
+      padding-right: 5px;
+      font-size: 14px;
+   }
+
+   .detail-properties {
+      width: 125px;
+   }
+
+   .detail-content {
+      width: auto;
+   }
+
+   svg {
+      width: 100%;
+      font-size: 14px;
+   }
+
+   .stat-bar {
+      x: 220px;
+   }
+
+   .stat-name {
+      x: 20px; 
+   }
+
+   .stat-value {
+      x: 120px;
+   }
 }

@@ -7,7 +7,7 @@
    margin-bottom: 50px;
 }
 
-.mini_card_body {
+.mini-card-body {
    height: 300px;
    width: 220px;
    background-color: #0d3240;
@@ -20,14 +20,14 @@
    margin: 20px;
 }   
 
-.mini_card_body:hover {
-   cursor: pointer;
+.mini-card-body:hover {
+   cursor: zoom-in;
    transform: scale(1.2); /* Vergrößert das Element um 20% */
    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Optionale Schatteneffekte für den Hover-Effekt */
 }
 
 /* ---------------------------- Card Body Top ----------------------------- */
-.mini_card_body_top {
+.mini-card-body-top {
    height: 35px;
    padding: 10px;
    display: flex;
@@ -35,18 +35,18 @@
 }
 
 /* ---------------------------- Card Body Img ----------------------------- */
-.mini_card_body_img img {
+.mini-card-body-img img {
    width: 100%;
 }
 
 /* ---------------------------- Card Body Bottom ----------------------------- */
-.mini_card_body_bottom {
+.mini-card-body-bottom {
    height: 35px;
    display: flex;
    justify-content: center;
    gap: 20px;
 }
 
-.mini_card_body_bottom img{
+.mini-card-body-bottom img{
    height: 30px;
 }

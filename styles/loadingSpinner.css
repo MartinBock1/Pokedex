@@ -7,11 +7,16 @@
    }
 }
 
-.spinner_img {
+.spinner-img {
    animation: rotation 5s infinite linear;
+   text-align: center;
 }
 
-.loading_text {
+.spinner-img img{
+   width: 100%;
+}
+
+.loading-text {
    text-align: center;
    margin-top: 20px;
    font-size: 24px;
