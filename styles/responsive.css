@@ -1,4 +1,4 @@
-@media (max-width: 520px) {
+@media (max-width: 560px) {
    header {
       height: 100px;
    }
@@ -19,10 +19,11 @@
 
    .header-content {
       flex-direction: column;
+      font-size: 40px;    
    }
 
-   .header-text {
-      margin-bottom: 10px;
+   .search-field {
+      height: 20px;
    }
 }
 
@@ -56,6 +57,10 @@
    .detail-content {
       width: auto;
    }
+
+   .detail-values {
+    width: 150px;
+}
 
    svg {
       width: 100%;

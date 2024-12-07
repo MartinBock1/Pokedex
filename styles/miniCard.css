@@ -1,10 +1,18 @@
 /* ---------------------------- Globals ----------------------------- */
+.d_none {
+   display: none;
+}
+
 #content {
    display: flex;
    flex-wrap: wrap;
    align-content: center;
    justify-content: center;
    margin-bottom: 50px;
+}
+
+.error-Message {
+   text-align: center;
 }
 
 .mini-card-body {

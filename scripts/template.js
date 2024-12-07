@@ -172,7 +172,7 @@ function mainDetailsTemplate(pokemon, pokemonAbilities) {
                         Abilities
                     </div>
                     <div>
-                        : ${pokemonAbilities.ability.join(", ")}
+                        : ${pokemonAbilities.join(", ")}
                     </div>
                 </div>
                 <div class="details">
@@ -200,11 +200,11 @@ function mainDetailsTemplate(pokemon, pokemonAbilities) {
 }
 
 function statsTemplate(selectedPokemon) {
-    let maxStatValue = 255;  // Maximale Stat-Werte für die Skalierung (normalerweise 255)    
+    let maxStatValue = 255;  // Max StatValue for scaling (usually 255)
 
-    // Hilfsfunktion, um den Fortschrittsbalken zu erstellen
+    // Helper function to create the progress bar
     function createProgressBar(statValue) {
-        let percentage = (statValue / maxStatValue) * 100; // Berechnung des Prozentsatzes
+        let percentage = (statValue / maxStatValue) * 100; // Calculating the percentage
         return `
             <div class="progress-bar-container">
                 <div class="progress-bar" style="width: ${percentage}%;"></div>
