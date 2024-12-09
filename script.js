@@ -31,8 +31,6 @@ async function fetchDataJson() {
         // Loop through each Pokemon in the results array
         for (let i = pokemonList.length; i < responseApiAsJson.results.length; i++) {
             let pokemonData = responseApiAsJson.results[i];             // get name % url of each loaded Pokemon
-            console.log(pokemonList.length);
-            console.log(loadToId);
             /** get firstleveldetails for each pokemon
              * e.g. id, names, species, sprites for images, types(e.g. grass, poison), weight
              */
