@@ -1,5 +1,5 @@
 let isLoading = false;
-let loadToId = 0;
+let loadToId = 20;
 
 let pokemons = [];
 let pokemonList = [];
@@ -24,13 +24,15 @@ async function init() {
  */
 async function fetchDataJson() {
     try {
-        let fetchPkm = `https://pokeapi.co/api/v2/pokemon?limit=20&offset=${loadToId}`;
+        let fetchPkm = `https://pokeapi.co/api/v2/pokemon?limit=${loadToId}&offset=0`;
         let responseAPI = await fetch(fetchPkm);                        // Fetch data from the Pokemon API, with a dynamic limit and offset based on 'loadToId'
         let responseApiAsJson = await responseAPI.json();               // get a JSON for each loaded pokemon (e.g. results[])
 
         // Loop through each Pokemon in the results array
-        for (let i = 0; i < responseApiAsJson.results.length; i++) {
+        for (let i = pokemonList.length; i < responseApiAsJson.results.length; i++) {
             let pokemonData = responseApiAsJson.results[i];             // get name % url of each loaded Pokemon
+            console.log(pokemonList.length);
+            console.log(loadToId);
             /** get firstleveldetails for each pokemon
              * e.g. id, names, species, sprites for images, types(e.g. grass, poison), weight
              */
@@ -118,7 +120,7 @@ async function loadMore() {
     loadingRef.style.display = 'block';                         // Show the loading spinner
     loadToId += 20;                                             // increases the value of loadToId
     document.getElementById("myButton").disabled = true;        // disable the loadMore button 
-    await loadingSpinner();                                    // Call the loadingSpinner function to show a loading animation
+    await loadingSpinner();                                     // Call the loadingSpinner function to show a loading animation
     let loadMoreButton = document.getElementById('myButton');   // Get the reference to the "Load More" button by its ID
     if (loadMoreButton) {                                       // Check if the "Load More" button exists on the page
         loadMoreButton.scrollIntoView({
@@ -140,7 +142,7 @@ async function renderPokemonData() {
     loadingRef.classList.add('d_none');                         // Hide the loading spinner    
 
     contentRef.innerHTML = '';
-    for (let i = 0; i < pokemonList.length; i++) {              // Loop through each Pokemon in the pokemonList
+    for (let i = loadToId - 20; i < pokemonList.length; i++) {  // Loop through each Pokemon in the pokemonList
         pokemon = pokemonList[i];                               // Get the current Pokemon object 
         contentRef.innerHTML += miniCardTemplate(pokemon);      // Add the mini card template for the current Pokemon        
 
