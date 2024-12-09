@@ -110,6 +110,8 @@ footer {
    right: 0;
    height: 80px;
    align-content: center;
+   display: flex;
+   align-items: center;
 }
 
 footer a {
@@ -120,4 +122,14 @@ footer a {
    color: white;
    font-size: 12px;
    text-align: center;
+}
+
+footer img {
+   width: 30px;
+   height: 30px;
+}
+
+footer img:hover {
+    transform: scale(0.9);
+    filter: drop-shadow(0px 0px 5px gold);
 }
