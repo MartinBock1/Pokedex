@@ -310,7 +310,8 @@ function getNextPokemonName(currentName, direction) {
  * Closes the overlay and restores the body's ability to scroll.
  */
 function overlayOff() {
-    document.getElementById("overlay").style.display = "none";                      // Restore the body's overflow style to "auto", allowing scrolling again
+    document.getElementById("overlay").style.display = "none";
+    document.body.style.overflow = "auto";
 }
 
 /**

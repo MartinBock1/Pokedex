@@ -393,4 +393,3 @@ function evoChainTemplate(firstEvoChainPkmImage, secondEvoChainPkmImage, thirdEv
         </div>
     `;
 }
-
