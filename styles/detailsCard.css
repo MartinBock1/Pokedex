@@ -33,6 +33,38 @@
    cursor: default;
 }
 
+.flip-vertical-fwd {
+	-webkit-animation: flip-vertical-fwd 0.5s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
+	        animation: flip-vertical-fwd 0.5s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
+}
+
+/**
+ * ----------------------------------------
+ * animation flip-vertical-fwd
+ * ----------------------------------------
+ */
+@-webkit-keyframes flip-vertical-fwd {
+  0% {
+    -webkit-transform: translateZ(0) rotateY(0);
+            transform: translateZ(0) rotateY(0);
+  }
+  100% {
+    -webkit-transform: translateZ(160px) rotateY(360deg);
+            transform: translateZ(160px) rotateY(360deg);
+  }
+}
+  @keyframes flip-vertical-fwd {
+  0% {
+    -webkit-transform: translateZ(0) rotateY(0);
+            transform: translateZ(0) rotateY(0);
+  }
+  100% {
+    -webkit-transform: translateZ(160px) rotateY(360deg);
+            transform: translateZ(160px) rotateY(360deg);
+  }
+}
+
+
 /* ---------------------------- Card Body Top ----------------------------- */
 h3 {
    cursor: pointer;
@@ -141,7 +173,16 @@ h3 {
    display: flex;
    align-items: center;
    justify-content: space-around;
-   height: 100%;
+   height: 100%;   
+}
+
+.evo-chain-content {
+   align-items: center;
+   width: 30%;
+}
+
+.evo-chain-image {
+   width: 100px;
 }
 
 

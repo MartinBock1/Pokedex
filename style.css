@@ -35,6 +35,12 @@ h1 {
    font-size: 40px;
    margin-block-start: 0;
    padding-top: 20px;
+   font-family: 'PkmSolid', Arial, Helvetica, sans-serif;
+}
+
+h3 {
+   text-align: center;
+   font-size: 16px;
 }
 
 .d_none {
@@ -48,7 +54,7 @@ header {
    background-color: #0d2d33;
    text-align: left;
    align-content: center;
-   height: 80px;
+   height: 120px;
 }
 
 header img {
@@ -68,6 +74,7 @@ header img {
 .header-text {
    display: flex;
    align-items: center;
+   font-family: "Pokemon_Solid", Arial, Helvetica, sans-serif;
 }
 .search-content {
    display: flex;
@@ -108,7 +115,7 @@ footer {
    bottom: 0;
    left: 0;
    right: 0;
-   height: 80px;
+   height: 120px;
    align-content: center;
    display: flex;
    align-items: center;
