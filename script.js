@@ -9,6 +9,9 @@ let Type = [];
 let pokemonAbilities = [];
 let pokemonStats = [];
 
+let year = new Date().getFullYear();
+document.getElementById('year').textContent = year;
+
 /*------------------------------------------------------------ Init & Fetch Section ------------------------------------------------------------*/
 /**
  * Initialize the application by setting up event listeners and showing the loading spinner.
