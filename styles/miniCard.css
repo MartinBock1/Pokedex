@@ -65,3 +65,23 @@
 .mini-card-body-bottom img {
    height: 30px;
 }
+
+.pokemon-image-shadow {
+  /*
+   * Syntax: filter: drop-shadow(x-offset y-offset blur-radius color);
+   * x-offset: Verschiebung nach rechts (negativ für links)
+   * y-offset: Verschiebung nach unten (negativ für oben)
+   * blur-radius: Wie stark der Schatten weichgezeichnet wird.
+   * color: Die Farbe des Schattens. rgba() ist ideal für halbtransparente Schatten.
+   */
+  filter: drop-shadow(4px 4px 5px rgba(0, 0, 0, 0.5));
+
+  /* Optional: Eine sanfte Animation hinzufügen, wenn man über das Bild fährt */
+  transition: transform 0.2s ease-in-out, filter 0.2s ease-in-out;
+}
+
+/* Optional: Den Schatten und die Größe beim Hovern verstärken für einen coolen Effekt */
+.pokemon-image-shadow:hover {
+  transform: scale(1.1);
+  filter: drop-shadow(6px 6px 10px rgba(0, 0, 0, 0.6));
+}

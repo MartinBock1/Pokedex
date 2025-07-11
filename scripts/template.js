@@ -43,7 +43,7 @@ function miniCardTemplate(pokemon) {
                     <div></div>                         
                 </div>
                 <div class="mini-card-body-img" id="mini_card_body_${pokemon.name}">
-                    <img src="${pokemon.image}" alt="Image of ${pokemon.name}">
+                    <img class="pokemon-image-shadow" src="${pokemon.image}" alt="Image of ${pokemon.name}">
                 </div>
                 <div class="mini-card-body-bottom" id="mini_card_icon_${pokemon.name}">
                 </div>                    
