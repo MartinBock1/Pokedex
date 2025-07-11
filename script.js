@@ -67,80 +67,80 @@ async function init() {
 // =================================================================================
 
 /**
- * Fetches all Pokémon data from the API efficiently using Promise.all.
- * This function is designed to run only once at the application's start.
- * It fetches the main list, then all details, species, and evolution data in parallel.
+ * Fetches all Pokémon data from the API efficiently and robustly by processing requests in batches.
+ * This prevents network errors from flooding the server with too many concurrent requests.
  * @async
  */
 async function fetchAllPokemonData() {
-  if (allPokemonsFetched) return; // Prevent re-fetching data.
+  if (allPokemonsFetched) return;
 
   try {
-    // 1. Fetch the entire list of Pokémon names and their detail URLs.
-    // Using a high limit to get all Pokémon in a single request.
+    // Step 1: Fetch the initial list, this is fine as it's a single request.
     const responseList = await fetch(
-      "https://pokeapi.co/api/v2/pokemon?limit=1500&offset=0"
+      "https://pokeapi.co/api/v2/pokemon?limit=1800&offset=0"
     );
     const dataList = await responseList.json();
 
-    // 2. Create an array of promises to fetch detailed data for each Pokémon.
-    const detailPromises = dataList.results.map((pokemon) =>
-      fetch(pokemon.url).then((res) => res.json())
-    );
-    const pokemonDetailsArray = await Promise.all(detailPromises);
-
-    // 3. Create a final array of promises to fetch supplementary data (species, evolution) for each Pokémon.
-    const finalPokemonPromises = pokemonDetailsArray.map(async (pDetail) => {
-      // Fetch species data in parallel.
-      const speciesPromise = fetch(pDetail.species.url).then((res) =>
-        res.json()
+    // Step 2: Process detail fetches in batches.
+    const pokemonDetailsArray = [];
+    const detailChunkSize = 100; // Process 50 requests at a time.
+    console.log("Fetching details in batches...");
+    for (let i = 0; i < dataList.results.length; i += detailChunkSize) {
+      const chunk = dataList.results.slice(i, i + detailChunkSize);
+      const detailPromises = chunk.map((pokemon) =>
+        fetch(pokemon.url).then((res) => res.json())
       );
-      const speciesDetails = await speciesPromise;
+      const details = await Promise.all(detailPromises);
+      pokemonDetailsArray.push(...details);
+      console.log(`Fetched details for Pokémon ${i + 1} to ${i + chunk.length}`);
+    }
 
-      // Fetch evolution chain data in parallel.
-      const evolutionPromise = fetch(speciesDetails.evolution_chain.url).then(
-        (res) => res.json()
-      );
-      const evolutionChainDetails = await evolutionPromise;
+    // Step 3: Process final data (species, evolution) in batches.
+    const finalPokemonList = [];
+    const finalChunkSize = 50;
+    console.log("Fetching species & evolution data in batches...");
+    for (let i = 0; i < pokemonDetailsArray.length; i += finalChunkSize) {
+        const chunk = pokemonDetailsArray.slice(i, i + finalChunkSize);
+        const finalPromises = chunk.map(async (pDetail) => {
+            const speciesPromise = fetch(pDetail.species.url).then((res) => res.json());
+            const speciesDetails = await speciesPromise;
+            const evolutionPromise = fetch(speciesDetails.evolution_chain.url).then((res) => res.json());
+            const evolutionChainDetails = await evolutionPromise;
+            const flavorTextEntry = speciesDetails.flavor_text_entries.find((entry) => entry.language.name === "en");
+            const flavorText = flavorTextEntry ? flavorTextEntry.flavor_text : "No description available.";
+            
+            return {
+                name: pDetail.name,
+                id: pDetail.id,
+                image: pDetail.sprites.other.home.front_default,
+                types: pDetail.types,
+                color: speciesDetails.color.name,
+                height: pDetail.height,
+                weight: pDetail.weight,
+                baseExperience: pDetail.base_experience,
+                abilities: pDetail.abilities,
+                flavortext: flavorText,
+                habitat: speciesDetails.habitat,
+                shape: speciesDetails.shape,
+                evolutionChain: evolutionChainDetails.chain,
+                stats: pDetail.stats,
+            };
+        });
+        const finalData = await Promise.all(finalPromises);
+        finalPokemonList.push(...finalData);
+        console.log(`Fetched final data for Pokémon ${i + 1} to ${i + chunk.length}`);
+    }
 
-      // Safely find an English flavor text entry.
-      const flavorTextEntry = speciesDetails.flavor_text_entries.find(
-        (entry) => entry.language.name === "en"
-      );
-      const flavorText = flavorTextEntry
-        ? flavorTextEntry.flavor_text
-        : "No description available.";
-
-      // 4. Construct the final, comprehensive Pokémon object.
-      return {
-        name: pDetail.name,
-        id: pDetail.id,
-        image: pDetail.sprites.other.home.front_default,
-        types: pDetail.types,
-        color: speciesDetails.color.name,
-        height: pDetail.height,
-        weight: pDetail.weight,
-        baseExperience: pDetail.base_experience,
-        abilities: pDetail.abilities,
-        flavortext: flavorText,
-        habitat: speciesDetails.habitat,
-        shape: speciesDetails.shape,
-        evolutionChain: evolutionChainDetails.chain,
-        stats: pDetail.stats,
-      };
-    });
-
-    // 5. Resolve all promises and store the complete list.
-    pokemonList = await Promise.all(finalPokemonPromises);
-    // Sort by ID to ensure correct order after parallel fetching.
+    pokemonList = finalPokemonList;
     pokemonList.sort((a, b) => a.id - b.id);
-
     allPokemonsFetched = true;
+    console.log("All Pokémon data fetched successfully!");
+
   } catch (error) {
     console.error("Error fetching Pokémon data:", error);
     document.getElementById(
       "content"
-    ).innerHTML = `<div class="error-Message">Failed to load Pokémon data. Please refresh the page. Error: ${error.message}</div>`;
+    ).innerHTML = `<div class="error-Message">A network error occurred while loading Pokémon data. Please try refreshing the page. Error: ${error.message}</div>`;
   }
 }
 
