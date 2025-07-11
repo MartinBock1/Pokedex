@@ -84,7 +84,7 @@ async function fetchAllPokemonData() {
     // Step 2: Process detail fetches in batches.
     const pokemonDetailsArray = [];
     const detailChunkSize = 100; // Process 50 requests at a time.
-    console.log("Fetching details in batches...");
+    // console.log("Fetching details in batches...");
     for (let i = 0; i < dataList.results.length; i += detailChunkSize) {
       const chunk = dataList.results.slice(i, i + detailChunkSize);
       const detailPromises = chunk.map((pokemon) =>
@@ -92,13 +92,13 @@ async function fetchAllPokemonData() {
       );
       const details = await Promise.all(detailPromises);
       pokemonDetailsArray.push(...details);
-      console.log(`Fetched details for Pokémon ${i + 1} to ${i + chunk.length}`);
+      // console.log(`Fetched details for Pokémon ${i + 1} to ${i + chunk.length}`);
     }
 
     // Step 3: Process final data (species, evolution) in batches.
     const finalPokemonList = [];
     const finalChunkSize = 50;
-    console.log("Fetching species & evolution data in batches...");
+    // console.log("Fetching species & evolution data in batches...");
     for (let i = 0; i < pokemonDetailsArray.length; i += finalChunkSize) {
         const chunk = pokemonDetailsArray.slice(i, i + finalChunkSize);
         const finalPromises = chunk.map(async (pDetail) => {
@@ -128,13 +128,13 @@ async function fetchAllPokemonData() {
         });
         const finalData = await Promise.all(finalPromises);
         finalPokemonList.push(...finalData);
-        console.log(`Fetched final data for Pokémon ${i + 1} to ${i + chunk.length}`);
+        // console.log(`Fetched final data for Pokémon ${i + 1} to ${i + chunk.length}`);
     }
 
     pokemonList = finalPokemonList;
     pokemonList.sort((a, b) => a.id - b.id);
     allPokemonsFetched = true;
-    console.log("All Pokémon data fetched successfully!");
+    // console.log("All Pokémon data fetched successfully!");
 
   } catch (error) {
     console.error("Error fetching Pokémon data:", error);
